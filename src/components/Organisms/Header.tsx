@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import DesktopNav from "./DesktopNav";
+import DesktopNav from "../Molecules/DesktopNav";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import MobileNav from "./MobileNav";
+import MobileNav from "../Molecules/MobileNav";
 
 const Header = () => {
 

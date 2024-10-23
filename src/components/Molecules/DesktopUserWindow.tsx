@@ -1,7 +1,8 @@
 import { FiLogOut } from "react-icons/fi";
 import { VscAccount } from "react-icons/vsc";
-import { Link } from "react-router-dom";
-import MeuPerfilIcon from "@/assets/icon_meu_perfil.svg"
+import MeuPerfilIcon from "@/assets/icons/icon_meu_perfil.svg"
+import { IoChatboxOutline } from "react-icons/io5";
+import LinkItem from "../Atoms/LinkItem";
 
 interface DesktopUserWindowProps {
     isOpen: boolean
@@ -19,16 +20,13 @@ const DesktopUserWindow = ({ isOpen, handleLogout }:DesktopUserWindowProps) => {
                         <p>Jão Pernalonga</p>
                     </li>
                     <li>
-                        <Link to="/meu-perfil" className="flex gap-3 items-center">
-                            <i><img src={MeuPerfilIcon} alt="Icone de Meu Perfil" /></i>
-                            Meu Perfil
-                        </Link>
+                        <LinkItem to="/meu-perfil" children="Meu Perfil" icon={<img src={MeuPerfilIcon} alt="Icone de Meu Perfil" />} />
                     </li>
-                    <li className="pt-3">
-                        <Link to="/login" onClick={handleLogout} className="flex gap-3 items-center">
-                            <i><FiLogOut color="#FFFFFF" size={22} /></i>
-                            Logout
-                        </Link>
+                    <li>
+                        <LinkItem to="/meus-chats" children="Meus Chats" icon={<IoChatboxOutline color="#FFFFFF" size={21} />} />
+                    </li>
+                    <li className="pt-2">
+                        <LinkItem to="/login" children="Logout" onClick={handleLogout} icon={<FiLogOut color="#FFFFFF" size={22} />} />
                     </li>
                 </ul>
             </nav>

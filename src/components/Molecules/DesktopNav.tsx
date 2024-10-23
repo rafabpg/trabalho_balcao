@@ -1,7 +1,7 @@
 import DesktopUserWindow from './DesktopUserWindow'
-import NavLinkItem from '../NavLinkItem'
+import NavLinkItem from '../Atoms/NavLinkItem'
 import { VscAccount } from 'react-icons/vsc'
-import Logo from "@/assets/logo_uff.svg"
+import Logo from "@/assets/icons/logo_uff.svg"
 
 interface DesktopNavProps {
     isOpen: boolean

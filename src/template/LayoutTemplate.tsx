@@ -1,4 +1,4 @@
-import Header from '@/components/Header/Header'
+import Header from '@/components/Organisms/Header'
 import { Outlet } from 'react-router'
 
 const LayoutTemplate = () => {

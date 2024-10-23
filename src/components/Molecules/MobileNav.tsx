@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { VscAccount } from "react-icons/vsc";
-import NavLinkItem from "../NavLinkItem";
-import Logo from "@/assets/logo_uff.svg"
-import MeuPerfilIcon from "@/assets/icon_meu_perfil.svg"
+import NavLinkItem from "../Atoms/NavLinkItem";
+import Logo from "@/assets/icons/logo_uff.svg"
+import MeuPerfilIcon from "@/assets/icons/icon_meu_perfil.svg"
 
 interface MobileNavProps {
     isOpenMenu: boolean
