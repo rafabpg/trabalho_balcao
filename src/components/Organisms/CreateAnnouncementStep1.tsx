@@ -13,7 +13,7 @@ const CreateAnnouncementStep1 = () => {
 
     return (
         <section className="flex flex-col items-center">
-            <h1 className="pb-11 text-center text-secondary font-bold text-3xl">
+            <h1 className="pb-11 text-center text-secondary font-bold text-2xl lg:text-3xl">
                 Crie seu próprio Anúncio
             </h1>
             <FormCard>
@@ -21,7 +21,7 @@ const CreateAnnouncementStep1 = () => {
                     error={errors.title?.message} label="Adicione seu Título" errorMessage={errors.title?.message}/>
                 <div className="flex flex-col gap-3">
                     <Label children="Adicione a descrição do seu anúncio"/>
-                    <textarea className="h-[152px] w-[678px]  rounded-md py-2 px-3 text-base outline-none focus:ring-2 focus:ring-primary placeholder-lighter-secondary" placeholder="Adicione  descrição do seu anúncio" 
+                    <textarea className="h-[152px] max-w-[678px] sm:w-[500px] md:w-[600px] lg:w-[678px] rounded-md py-2 px-3 text-base outline-none focus:ring-2 focus:ring-primary placeholder-lighter-secondary" placeholder="Adicione  descrição do seu anúncio" 
                     {...register("description") }
                     />
                     {errors.description && <span className="text-red-500">{errors.description.message}</span>}
@@ -35,9 +35,9 @@ const CreateAnnouncementStep1 = () => {
                     prefix="R$ "
                     {...register("price")}
                 />
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 self-start">
                     <Label children="Qual será o preço?"/>
-                    <PriceInput {...register("price")}  error={errors.price?.message} className="border rounded-lg w-[678px] py-2 px-3 text-base outline-none focus:ring-2 focus:ring-primary placeholder-lighter-secondary"  />
+                    <PriceInput {...register("price")}  error={errors.price?.message} className="border rounded-lg max-w-[159px] py-2 px-3 text-base outline-none focus:ring-2 focus:ring-primary placeholder-lighter-secondary"  />
                     {errors.price && <span className="text-red-500">{errors.price.message}</span>}
                 </div>
                 <SelectField 
@@ -45,7 +45,7 @@ const CreateAnnouncementStep1 = () => {
                     options={Object.values(CategoryEnum).map(value => ({ label: value, value }))}
                     placeholder="Selecione uma categoria" 
                     label="Quais dessas categorias seu anúncio se encaixa?" 
-                    className="self-start"
+                    className="self-start max-w-[368px] lg:w-[368px]"
                     errorMessage={errors.category?.message} 
                     />
                 <SelectField  
@@ -53,7 +53,7 @@ const CreateAnnouncementStep1 = () => {
                     options={Object.values(ItemTypeEnum).map(value => ({ label: value, value }))}
                     placeholder="Selecione um tipo de item" 
                     label="Por que você esta criando esse anúncio?" 
-                    className="self-start"
+                    className="self-start max-w-[368px]  lg:w-[368px]"
                     errorMessage={errors.item_type?.message} 
                     />
                 <SelectField 
@@ -61,7 +61,7 @@ const CreateAnnouncementStep1 = () => {
                     options={Object.values(LocalizationEnum).map(value => ({ label: value, value }))}
                     placeholder="Selecione uma localização" 
                     label="Localização do anúncio" 
-                    className="self-start"
+                    className="self-start max-w-[368px]  lg:w-[368px]"
                     errorMessage={errors.localization?.message} 
                     />
             </FormCard>

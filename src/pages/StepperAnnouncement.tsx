@@ -3,7 +3,6 @@ import CreateAnnouncementStep1 from '@/components/Organisms/CreateAnnouncementSt
 import CreateAnnouncementStep2 from '@/components/Organisms/CreateAnnouncementStep2';
 import { useCreateAnnouncementContext } from '@/hooks/useCreateAnnouncementContext';
 import { Step } from '@material-tailwind/react';
-import { useEffect, useState } from 'react';
 
 
 
@@ -56,9 +55,22 @@ const StepperAnnouncement = () => {
               </Step>
             ))}
         </div>
-        <div className="flex gap-4 py-4 justify-between">
-          <Button  onClick={handlePreviousStep} hidden={stepState === 1} text='Voltar' className='px-20 bg-red-color'/>
-          <Button text={stepState === 2 ? 'Criar Anúncio' : 'Proxima Etapa'}    disabled={!isStepValid} onClick={handleCreateAnnouncement}  className='px-14' />
+        <div className="flex pb-5 items-center gap-10 flex-col-reverse">
+          <Button 
+            onClick={handlePreviousStep} 
+            hidden={stepState === 1} 
+            text='Voltar' 
+            className='px-20 bg-red-color'
+          />
+          
+          <div className="flex-grow flex justify-center">
+            <Button 
+              text={stepState === 2 ? 'Criar Anúncio' : 'Proxima Etapa'}    
+              disabled={!isStepValid} 
+              onClick={handleCreateAnnouncement}  
+              className='px-14' 
+            />
+          </div>
         </div>
     </div>
   )

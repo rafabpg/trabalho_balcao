@@ -1,5 +1,4 @@
 import FormCard from '../Atoms/FormCard'
-import MultiImageUpload from '../Atoms/MultiImages';
 import FormInput from '../Molecules/FormInput'
 import { useCreateAnnouncementContext } from '@/hooks/useCreateAnnouncementContext'
 
@@ -8,16 +7,17 @@ const CreateAnnouncementStep2 = () => {
 
   return (
     <section className="flex flex-col items-center">
-        <h1 className="pb-11 text-center text-secondary font-bold text-3xl">
+        <h1 className="pb-11 text-center text-secondary font-bold text-2xl lg:text-3xl">
             Crie seu próprio Anúncio
         </h1>
         <FormCard >
-          <h2 className="text-3xl text-light font-bold">Informações Adicionais para seu Anúncio</h2>
+          <h2 className="text-xl md:text-2xllg:text-3xl text-light font-bold">Informações Adicionais para seu Anúncio</h2>
           <div className="flex flex-col gap-10">
-            <div className="flex gap-4">
+            <div className="flex lg:gap-20 md:gap-10 gap-5 flex-col  md:flex-row lg:flex-row">
               <FormInput 
                 type="text" 
                 placeholder="(xx) 99999-9999" 
+                className='max-w-[282px] lg:w-[282px]'
                 label="Digite o telefone para contato" 
                 {...register("phone")} 
                 error={errors.phone?.message} 
@@ -32,6 +32,7 @@ const CreateAnnouncementStep2 = () => {
               <FormInput 
                 type="text" 
                 placeholder="ex:teste@gmail.com" 
+                className='max-w-[282px] lg:w-[282px]'
                 {...register("email")} 
                 error={errors.email?.message} 
                 label="Digite o email para contato" 

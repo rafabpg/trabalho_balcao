@@ -54,6 +54,7 @@ export const CreateAnnouncementProvider = ({ children }: CreateAnnouncementProvi
         if (typeof formData.price === 'string') {
             formData.price = parseFloat((formData.price as string).replace('R$', '').replace(/[^\d,.-]/g, '').replace(',', '.'));
         }
+        console.log("Submit",formData);
         // createAdvertisement(bodydata);
     };
 
