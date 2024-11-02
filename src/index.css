@@ -76,3 +76,189 @@
     margin-right: -50%;
     transform: translate(-50%, -50%);
   }
+
+.image-container{
+    display: grid;
+    grid-template-rows: 80px ;
+    grid-template-columns: 300px 300px 300px;
+    justify-content: center;
+    grid-gap: 10px;
+}
+
+.adImage{
+    position:block;  
+    height: auto;
+    width: 300px;
+    height:350px;
+    border:1px solid theme('colors.primary-darker');
+    border-radius: 5px;
+}
+
+.ad-header-container{
+    display:grid;
+    grid-template-rows:50px 50px;
+    grid-template-columns: 500px;
+}
+
+.tag{
+    display:grid;
+    width:135px;
+    background-color: theme('colors.lighter-primary');
+    grid-template-rows:5px;
+    grid-template-columns: 300px 10px;
+    justify-content: center;
+    border-radius:5px;
+    margin-top:20%;
+    
+}
+
+.tag-icon{
+    display:inline-block;
+    justify-content: left;
+
+}
+
+.tag-text{
+    display: inline-block;
+    margin:auto;
+    color:theme('colors.primary-darker');
+    font-size:12px;
+    font-family: "Montserrat";
+    text-align: center;
+
+}
+
+.ad-page-container{
+    display:grid;
+    grid-template-rows:710px 1px ;
+    grid-template-columns: 920px;
+    justify-content: center;
+    align-items: center;
+}
+
+.tag-container{
+    display:grid;
+    grid-template-rows:35px;
+    grid-template-columns: 80px 80px;
+    grid-gap:60px;
+    justify-content: left;
+
+}
+
+#description-container{
+    overflow:hidden;
+    width:585px;
+    height:140px;
+}
+
+.ad-title{
+    display:block;
+    font-size:36px;
+    font-family: "Montserrat";
+    height:105px;
+    font-weight: bold;
+}
+
+.description-text{
+    display:block;
+    font-size: 24px;
+    font-family: "Montserrat";
+    max-width:300px;
+    overflow-wrap:break-word; 
+    text-align: left;
+    padding:.5%
+}
+
+.description-expand{
+    color: theme('colors.primary-default');
+    font-size:24px;
+    font-family: "Montserrat";
+    height:100px;
+
+}
+
+.description-expand:hover{
+    text-decoration:underline;
+}
+
+.ad-price{
+    font-size:36px;
+    font-family: "Montserrat";
+    text-align: right;
+    font-weight: bold;
+
+
+}
+
+.ad-info-container{
+    display: grid;
+    grid-template-columns: 700px 100px;
+    grid-gap:10%;
+}
+
+.start-ad{
+    display:block;
+    width:300px;
+    
+    margin-left:60px;
+    margin-top:10px;
+
+
+
+}
+
+.announcer-window{
+    display:grid;
+    grid-template-columns: 120px auto;
+    
+    border: 1px solid theme('colors.primary-darker');
+    border-radius: 5px;
+    width:442px;
+    height:192px;
+    margin-left:-250px;
+    margin-top: 50px;
+
+}
+.user-header{
+    display:grid;
+    grid-template-rows:39px 24px;
+}
+
+.user-image-placeholder{
+    display:block;
+    background-color: theme('colors.lighter-primary');
+    border-radius:90px;
+    height:120px;
+    width:120px;
+    margin-top:10px;
+    margin-left:10px;
+}
+
+.user-ad-name{
+    font-size:32px;
+    font-family: "Montserrat";
+    color:theme("colors.primary-darker");
+    margin-left:20px;
+    margin-top:10px;
+}
+
+.user-rep-bar{
+    display: inline-block;
+    margin-left:50px;
+    margin-top:-7px;
+    color:theme("colors.primary-darker");
+    font-size:16px;
+    font-family: "Montserrat";
+
+}
+
+.rep-user-ad-star{
+    display:block;
+    margin-left:30px;
+    margin-top:20px;
+
+
+
+
+
+}

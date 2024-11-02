@@ -24,7 +24,12 @@ const onButtonClick = (event:MouseEvent) => {
     else{
         setPasswordError('')
     }
-    return
+    if((CPFError.length == 0) && (passwordError.length==0)){
+        
+
+
+
+    }
 
     // autenticação seria feita aqui
 };
