@@ -49,13 +49,15 @@ export const CreateAnnouncementProvider = ({ children }: CreateAnnouncementProvi
             setIsStepValid(allFieldsFilled);
         }, [watchedFields, getValues, requiredFields]); 
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         const formData = getValues();
-        if (typeof formData.price === 'string') {
-            formData.price = parseFloat((formData.price as string).replace('R$', '').replace(/[^\d,.-]/g, '').replace(',', '.'));
+        try {
+            const validatedData = await createAnnouncementSchema.parseAsync(formData);
+
+            console.log("Submit", validatedData);
+            // createAdvertisement(bodydata);
+        } catch (error) {
         }
-        console.log("Submit",formData);
-        // createAdvertisement(bodydata);
     };
 
     return (

@@ -17,7 +17,10 @@ export const createAnnouncementSchema = z.object({
     price: z
         .string()
         .min(1, { message: "Campo obrigatório" })
-        .transform((val) => parseFloat(val.replace(/[^\d,.-]/g, '').replace(',', '.')))
+        .transform((val) => {
+            const cleanedValue = val.replace(/R\$\s*/, '').replace(/[^\d,.-]/g, '').replace(',', '.');
+            return parseFloat(cleanedValue);
+        })
         .refine((val) => !isNaN(val) && val >= 0.0001 && val <= 999999999, {
             message: "Preço deve estar entre 0.0001 e 999999999",
         }),
