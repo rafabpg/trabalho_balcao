@@ -1,8 +1,9 @@
 import Header from '@/components/Organisms/Header';
 import Footer from '@/components/Organisms/Footer';
 import { Outlet } from 'react-router';
+import React from 'react';
 
-const LayoutTemplate = () => {
+const LayoutTemplate: React.FC = () => {
   return (
     <main className="flex flex-col min-h-screen">
       <Header />
