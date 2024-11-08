@@ -26,10 +26,8 @@ const AdCard: React.FC<AdCardProps> = ({
 }) => {
   return (
     <div className="w-full md:w-72 lg:w-80 bg-white shadow-md rounded-lg border border-blue-950 overflow-hidden">
-      {/* Imagem do Anúncio */}
       <div className="relative">
         <img src={adImage} className="w-full h-40 object-cover" />
-        {/* Informações do Usuário */}
         <div className="absolute top-2 left-2 flex items-center p-1 rounded-lg">
           <img src={userImage} alt={userName} className="w-10 h-10 rounded-full bg-gray-800" />
           <div className="ml-2">
