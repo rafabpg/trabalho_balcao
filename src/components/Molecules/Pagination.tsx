@@ -8,7 +8,6 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, paginate }) => {
-  // Função para exibir a paginação com "..."
   const getPagination = () => {
     const pages = [];
     const leftLimit = Math.max(currentPage - 1, 1);
@@ -33,11 +32,16 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, pagina
     return pages;
   };
 
+  const handlePageChange = (pageNumber: number) => {
+    paginate(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="flex justify-center mt-8">
       <ul className="flex space-x-2">
         <button
-          onClick={() => paginate(currentPage - 1)}
+          onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
           className={`px-2 rounded ${currentPage === 1 ? 'bg-white hover:bg-gray-200 hover:text-blue-950 text-gray-400 border border-gray-300 font-bold' : 'text-blue-950 hover:bg-gray-200 border border-gray-300'}`}
         >
@@ -47,7 +51,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, pagina
           <li key={index} className="flex">
             {typeof page === 'number' ? (
               <button
-                onClick={() => paginate(page)}
+                onClick={() => handlePageChange(page)}
                 className={`px-3 py-1 rounded ${currentPage === page ? 'bg-white hover:bg-blue-950 hover:text-white text-blue-950 border border-blue-950 font-bold' : 'text-blue-950 hover:bg-gray-200 border border-gray-300'}`}
               >
                 {page}
@@ -58,7 +62,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, pagina
           </li>
         ))}
         <button
-          onClick={() => paginate(currentPage + 1)}
+          onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           className={`px-2 rounded ${currentPage === totalPages ? 'text-white hover:bg-gray-200 border border-gray-300 bg-white' : 'hover:bg-gray-200 hover:text-blue-950 text-gray-400 border border-gray-300 font-bold'}`}
         >
