@@ -10,7 +10,11 @@ interface Filters {
   dateOrder: string;
 }
 
-const SearchAndFilterBar: React.FC = () => {
+interface SearchAndFilterBarProps {
+  onApplyFilters: (filters: Filters) => void;
+}
+
+const SearchAndFilterBar: React.FC<SearchAndFilterBarProps> = ({ onApplyFilters }) => {
   const [filters, setFilters] = useState<Filters>({
     searchTerm: '',
     priceOrder: '',
@@ -24,43 +28,52 @@ const SearchAndFilterBar: React.FC = () => {
   const [isOpenLocation, setIsOpenLocation] = useState(false);
   const [isOpenDate, setIsOpenDate] = useState(false);
 
-  // Funções de manipulação de filtro
+  // Função para fechar todos os dropdowns
+  const closeAllDropdowns = () => {
+    setIsOpenPrice(false);
+    setIsOpenCategory(false);
+    setIsOpenLocation(false);
+    setIsOpenDate(false);
+  };
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({ ...filters, searchTerm: event.target.value });
   };
 
   const handlePriceFilter = (order: string) => {
     setFilters({ ...filters, priceOrder: order });
-    setIsOpenPrice(false);
+    closeAllDropdowns();
   };
 
   const handleCategoryFilter = (category: string) => {
     setFilters({ ...filters, category });
-    setIsOpenCategory(false);
+    closeAllDropdowns();
   };
 
   const handleLocationFilter = (location: string) => {
     setFilters({ ...filters, location });
-    setIsOpenLocation(false);
+    closeAllDropdowns();
   };
 
   const handleDateFilter = (order: string) => {
     setFilters({ ...filters, dateOrder: order });
-    setIsOpenDate(false);
+    closeAllDropdowns();
   };
 
   const clearFilters = () => {
-    setFilters({
+    const defaultFilters = {
       searchTerm: '',
       priceOrder: '',
       category: '',
       location: '',
       dateOrder: '',
-    });
+    };
+    setFilters(defaultFilters);
+    onApplyFilters(defaultFilters);
   };
 
   const applyFilters = () => {
-    console.log('Filtros aplicados:', filters);
+    onApplyFilters(filters);
   };
 
   const priceText = filters.priceOrder ? `Preços: ${filters.priceOrder === 'asc' ? 'Menor - Maior' : 'Maior - Menor'}` : 'Filtre por preços';
@@ -92,20 +105,23 @@ const SearchAndFilterBar: React.FC = () => {
       <div className="flex flex-wrap gap-2 justify-center">
         {[
           { text: priceText, isOpen: isOpenPrice, setIsOpen: setIsOpenPrice, handler: handlePriceFilter, options: ['asc', 'desc'], labels: ['Menor para Maior', 'Maior para Menor'] },
-          { text: categoryText, isOpen: isOpenCategory, setIsOpen: setIsOpenCategory, handler: handleCategoryFilter, options: ['A', 'B'], labels: ['Categoria A', 'Categoria B'] },
-          { text: locationText, isOpen: isOpenLocation, setIsOpen: setIsOpenLocation, handler: handleLocationFilter, options: ['A', 'B'], labels: ['Localização A', 'Localização B'] },
+          { text: categoryText, isOpen: isOpenCategory, setIsOpen: setIsOpenCategory, handler: handleCategoryFilter, options: ['Livros', 'Eletrônicos', 'Móveis', 'Roupas', 'Brinquedos'], labels: ['Livros', 'Eletrônicos', 'Móveis', 'Roupas', 'Brinquedos'] },
+          { text: locationText, isOpen: isOpenLocation, setIsOpen: setIsOpenLocation, handler: handleLocationFilter, options: ['A', 'B', 'C', 'D', 'E'], labels: ['Localização A', 'Localização B', 'Localização C', 'Localização D', 'Localização E'] },
           { text: dateText, isOpen: isOpenDate, setIsOpen: setIsOpenDate, handler: handleDateFilter, options: ['recent', 'oldest'], labels: ['Mais recente', 'Mais antigo'] },
         ].map((filter, index) => (
           <div key={index} className="relative">
             <button
               className="bg-blue-950 text-white px-4 py-2 rounded-full flex items-center justify-between gap-2 w-48 h-10"
-              onClick={() => filter.setIsOpen(!filter.isOpen)}
+              onClick={() => {
+                closeAllDropdowns();
+                filter.setIsOpen(!filter.isOpen);
+              }}
             >
               <div className="w-1/2 text-sm whitespace-nowrap">{filter.text}</div>
               <IoIosArrowDown size={18} />
             </button>
             {filter.isOpen && (
-              <ul className="absolute bg-blue-950 text-white rounded-xl mt-2 shadow-lg w-48">
+              <ul className="absolute bg-blue-950 text-white rounded-xl mt-2 shadow-lg w-48 z-50">
                 {filter.options.map((option, i) => (
                   <li
                     key={i}
