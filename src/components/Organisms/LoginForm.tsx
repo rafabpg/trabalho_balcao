@@ -1,4 +1,5 @@
-import Button from "../Button";
+import Button from "@/components/Atoms/Button";
+
 import React, { useState } from 'react'
 import {MouseEvent} from "react";
 const LoginForm =() => {
