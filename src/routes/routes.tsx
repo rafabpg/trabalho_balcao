@@ -1,13 +1,16 @@
 import CreateAnnouncementPage from "@/template/CreateAnnouncementPage"
 import LayoutTemplate from "@/template/LayoutTemplate"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import LoginPage from "@/pages/LoginPage"
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
         <Routes>
+            <Route path="/" element={<LoginPage/>}/>
             <Route path="/" element={<LayoutTemplate/>}>
                 <Route path="criar-anuncios" element={<CreateAnnouncementPage/>}/>
+                
             </Route>
         </Routes>
     </BrowserRouter>
