@@ -21,7 +21,7 @@ const CreateAnnouncementStep1 = () => {
                     error={errors.title?.message} label="Adicione seu Título" errorMessage={errors.title?.message}/>
                 <div className="flex flex-col gap-3">
                     <Label children="Adicione a descrição do seu anúncio"/>
-                    <textarea className="h-[152px] max-w-[678px] sm:w-[500px] md:w-[600px] lg:w-[678px] rounded-md py-2 px-3 text-base outline-none focus:ring-2 focus:ring-primary placeholder-lighter-secondary" placeholder="Adicione  descrição do seu anúncio" 
+                    <textarea className="min-h-[100px] h-[152px]  max-h-[400px] max-w-[678px] sm:w-[500px] md:w-[600px] lg:w-[678px] rounded-md py-2 px-3 text-base outline-none focus:ring-2 focus:ring-primary placeholder-lighter-secondary" placeholder="Adicione  descrição do seu anúncio" 
                     {...register("description") }
                     />
                     {errors.description && <span className="text-red-500">{errors.description.message}</span>}
