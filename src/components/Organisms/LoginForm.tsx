@@ -25,58 +25,38 @@ const onButtonClick = (event:MouseEvent) => {
     else{
         setPasswordError('')
     }
-    return
+    if((CPFError == '') && (passwordError == '') && (password != '') && (CPF != '')){
+        window.location.href = '/'
+    }
 
-    // autenticação seria feita aqui
 };
 
 
 return (
         <div>
         
-        <div className="login-container">
+        <div className="grid grid-rows-4 grid-cols-1 justify-center items-center gap-y-2">
         
-        <label className='login-title' >Faça seu login</label>
+        <label className='ml-36 text-primary-darker text-center text-2xl font-sans font-bold' >Faça seu login</label>
         
-            <div>       
-            <label className = "login-input">CPF</label>      
-            <input value ={CPF} placeholder = "ex:123.456.789-13" onChange ={(ev) => setCPF(ev.target.value)} type="text" id="cpf" className = "input"/>
-            <label className = "errorLabel">{CPFError}</label>
+            <div className = "grid w-40 ml-40 gap-y-2">       
+            <label className = "text-primary-darker text-left text-xl ">CPF</label>      
+            <input value ={CPF} placeholder = "ex:123.456.789-13" onChange ={(ev) => setCPF(ev.target.value)} type="text" id="cpf" className = "border border-primary-darker rounded-md w-80"/>
+            <label className = "text-red-600 text-xs">{CPFError}</label>
             </div>  
 
-            <div>
-            <label className = "login-input">Senha</label>        
-            <input value ={password} onChange ={(ev) => setPassword(ev.target.value)}type="password" id="senha" className = "input"/>
-            <label className = "errorLabel">{passwordError}</label>
+            <div className = "grid w-40 ml-40 gap-y-2">
+            <label className = "text-primary-darker text-left text-xl ">Senha</label>        
+            <input value ={password} onChange ={(ev) => setPassword(ev.target.value)}type="password" id="senha" className = "border border-primary-darker rounded-md w-80 "/>
+            <label className = "text-red-600 text-xs" >{passwordError}</label>
             </div>
         
-        <div className="button-container">
         
         
-        <Button text="Entrar" onClick={onButtonClick}/>
+        
+        <Button className ="w-56 h-8 ml-56 text-center" text="Entrar" onClick={onButtonClick}/>
         </div>
-        
-        
         </div>
-
-
-
-
-
-
-
-        </div>
-    
-
-
-
-
-
 );
-
-
-
-
-
 
 }; export default LoginForm
