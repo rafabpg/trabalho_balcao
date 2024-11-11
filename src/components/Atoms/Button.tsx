@@ -6,6 +6,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string
 }
 
+
+
 const Button = ({text,className,disabled = false,disabled_color = 'bg-[#00346582]',...props}:ButtonProps) => {
 
   return (

@@ -15,7 +15,7 @@ import img036_2 from "@/assets/images/036/img036-2.png";
 import img036_3 from "@/assets/images/036/img036-3.png";
 import Tag from "@/components/Molecules/Tag";
 import Description from "@/components/Molecules/Description";
-import Button from "@/components/Button";
+import Button from "@/components/Atoms/Button";
 import Star from "@/assets/icons/Star.png"
 
 
@@ -107,7 +107,7 @@ return(
 
                         <div>   
                             <div className= "text-4xl text-right font-bold mt-2">{`R$${parseFloat(currentAd?.price!.toString()!).toFixed(2).toString()}`}</div>
-                            <div className="text-right mt-3"><Button text="Iniciar" /></div>
+                            <div className="text-right mt-3"><Button text="Iniciar" className="px-5" /></div>
                             <div className = "flex items-center text-center border border-secondary rounded-md w-96 h-40 ml-auto mt-10">
                             <div className = "bg-lighter-primary rounded-full w-28 h-28 mt-4 ml-4 " ></div>
                             <span className="grid grid-rows-2 w-64">
