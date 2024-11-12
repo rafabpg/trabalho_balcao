@@ -4,10 +4,11 @@ import Button from '../Atoms/Button'
 import { useNavigate } from 'react-router-dom'
 import {  FaStar } from 'react-icons/fa';
 import FormInput from './FormInput';
+import user_default from "@/assets/images/user_default_profile.png"
 
 const mockUser = {
     'name': 'John Doe',
-    'image': 'https://example.com/profile.jpg',
+    'image': '',
     'email': 'F8b5T@example.com',
     'cpf': '123.456.789-00',
     'data_nascimento': '01/01/2000',
@@ -39,7 +40,9 @@ const ProfileDisplay = () => {
     return (
         <section className='flex flex-col pl-4 md:pl-32 lg:pl-32 pt-10'>
             <div className='flex gap-6 items-center flex-wrap'>
-                <UserImage src={mockUser.image} />
+                <UserImage src={
+                    mockUser.image ? mockUser.image : user_default
+                } />
                 <div className='flex flex-col justify-start'>
                     <h1 className='text-3xl font-semibold text-primary-darker'>{mockUser.name}</h1>
                     <div className='flex items-center gap-1 pb-4'>
