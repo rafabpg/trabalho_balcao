@@ -8,7 +8,7 @@ import AdPage from "@/pages/AdPage";
 import ProfileTemplate from "@/template/ProfileTemplate";
 import ProfileDisplay from "@/components/Molecules/ProfileDisplay";
 import ProfileEdition from "@/components/Molecules/ProfileEdition";
-import UserChats from "@/components/Molecules/UserChats";
+import ProfileChats from "@/components/Organisms/ProfileChats";
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -18,7 +18,7 @@ const AppRoutes = () => {
           <Route path="meu-perfil" element={<ProfileTemplate />}>
             <Route index element={<ProfileDisplay />} />
             <Route path="editar" element={<ProfileEdition />} />
-            <Route path="chats" element={<UserChats />} />
+            <Route path="chats" element={<ProfileChats />} />
           </Route>
           <Route index element={<Home />} />
           <Route path="meus-anuncios" element={<MyAds />} />
