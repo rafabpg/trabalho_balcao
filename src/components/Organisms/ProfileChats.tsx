@@ -1,4 +1,5 @@
-import UserChat from "../Molecules/userChat"
+import UserChat from "../Molecules/UserChat"
+
 
 
 const ProfileChats = () => {

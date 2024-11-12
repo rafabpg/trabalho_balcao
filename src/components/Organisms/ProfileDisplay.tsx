@@ -3,7 +3,7 @@ import UserImage from '../Atoms/UserImage'
 import Button from '../Atoms/Button'
 import { useNavigate } from 'react-router-dom'
 import {  FaStar } from 'react-icons/fa';
-import FormInput from './FormInput';
+import FormInput from '../Molecules/FormInput';
 import user_default from "@/assets/images/user_default_profile.png"
 
 const mockUser = {

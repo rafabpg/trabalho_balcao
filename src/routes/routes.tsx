@@ -6,8 +6,8 @@ import LoginPage from "@/pages/LoginPage"
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdPage from "@/pages/AdPage";
 import ProfileTemplate from "@/template/ProfileTemplate";
-import ProfileDisplay from "@/components/Molecules/ProfileDisplay";
-import ProfileEdition from "@/components/Molecules/ProfileEdition";
+import ProfileDisplay from "@/components/Organisms/ProfileDisplay";
+import ProfileEdition from "@/components/Organisms/ProfileEdition";
 import ProfileChats from "@/components/Organisms/ProfileChats";
 const AppRoutes = () => {
   return (

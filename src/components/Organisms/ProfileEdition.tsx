@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FormInput from "./FormInput";
+import FormInput from "../Molecules/FormInput";
 import Button from "../Atoms/Button";
 import UserImage from "../Atoms/UserImage";
 import user_default from "@/assets/images/user_default_profile.png"
