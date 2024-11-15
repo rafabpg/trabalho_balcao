@@ -5,6 +5,8 @@ import MyAds from '@/pages/MyAds';
 import LoginPage from "@/pages/LoginPage"
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdPage from "@/pages/AdPage";
+
+import RatingModal from "@/components/Organisms/RatingModal";
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -16,6 +18,7 @@ const AppRoutes = () => {
           <Route path="criar-anuncios" element={<CreateAnnouncementPage/>}/>
           <Route path="anuncio/:adId" element={<AdPage/>}/>
         </Route>
+        <Route path= "/rating" element ={<RatingModal/>}/>
       </Routes>
     </BrowserRouter>
   );
