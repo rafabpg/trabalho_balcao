@@ -17,6 +17,7 @@ import Tag from "@/components/Molecules/Tag";
 import Description from "@/components/Molecules/Description";
 import Button from "@/components/Button";
 import Star from "@/assets/icons/Star.png"
+import RatingModal from "@/components/Organisms/RatingModal";
 
 
 interface ad{
@@ -76,7 +77,7 @@ return(
 <div>
     <div className="p-4 max-w-7xl center ml-auto mr-auto mt-14">
     
-
+    <RatingModal/>
         <div className="flex justify-center">
             <div className = "grid grid-rows-2 grid-cols-1 h-screen" >
             <div className = "grid grid-cols-3 grid-rows-1 h-full gap-2">
