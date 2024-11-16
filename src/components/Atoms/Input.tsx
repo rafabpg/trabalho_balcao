@@ -8,15 +8,21 @@ interface InputProps {
     mask?: MaskProps
     prefix?: string
     className?: string
+    value?:any
+    disabled?:boolean
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(({type, className, placeholder,mask,prefix, ...props},ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(({type,onChange, className, placeholder,mask,prefix, value, disabled, ...props},ref) => {
     const maskRef = useMask(mask);
 
     return (
         <input
             type={type}
             placeholder={placeholder}
+            value={value}
+            disabled={disabled}
+            onChange={onChange}
             ref={(el) => {
                 if (mask) maskRef.current = el;
                 return (typeof ref == "function") ? ref(el) : ref;

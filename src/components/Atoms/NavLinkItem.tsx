@@ -10,6 +10,7 @@ const NavLinkItem = ({link,children}:NavLinkItemProps) => {
   return (
     <li>
         <NavLink
+            end
             to={link}
             className={({ isActive }) =>
                 `focus:underline ${isActive ? 'underline' : ''} `
