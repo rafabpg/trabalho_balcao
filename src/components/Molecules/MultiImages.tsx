@@ -1,11 +1,16 @@
-import  { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageUploader from "../Atoms/ImageUploader";
 
-const MultiImages = () => {
+const MultiImages = ({ setValue }: any) => {
   const [images, setImages] = useState<(string | null)[]>(
     new Array(5).fill(null)
   );
-
+  useEffect(() => {
+    setValue(
+      "images",
+      images.filter((image) => image !== null)
+    );
+  }, [images, setValue]);
   const handleImageUpload = (index: number, base64Image: string) => {
     const updatedImages = [...images];
     updatedImages[index] = base64Image;
@@ -25,7 +30,9 @@ const MultiImages = () => {
           <div key={index} className=" w-48 h-48 relative">
             <ImageUploader
               image={image}
-              onImageUpload={(base64Image) => handleImageUpload(index, base64Image)}
+              onImageUpload={(base64Image) =>
+                handleImageUpload(index, base64Image)
+              }
               onRemove={() => handleRemoveImage(index)}
             />
           </div>
@@ -39,7 +46,8 @@ const MultiImages = () => {
           onRemove={() => handleRemoveImage(4)}
         />
       </div>
-    </div>)
+    </div>
+  );
 };
 
 export default MultiImages;

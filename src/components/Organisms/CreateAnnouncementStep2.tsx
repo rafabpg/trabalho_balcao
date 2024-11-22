@@ -6,7 +6,7 @@ import FormInput from "../Molecules/FormInput";
 import { useCreateAnnouncementContext } from "@/hooks/useCreateAnnouncementContext";
 
 const CreateAnnouncementStep2 = () => {
-  const { register, errors } = useCreateAnnouncementContext();
+  const { register, errors,setValue } = useCreateAnnouncementContext();
 
   return (
     <section className="flex flex-col items-center">
@@ -44,7 +44,7 @@ const CreateAnnouncementStep2 = () => {
               errorMessage={errors.email?.message}
             />
           </div>
-          <MultiImageUpload />
+          <MultiImageUpload setValue={setValue}/>
         </div>
       </FormCard>
     </section>
