@@ -14,6 +14,7 @@ export interface CreateAnnouncementContextProps {
     isStepValid: boolean;
     onSubmit: () => void; 
     register: any;
+    setValue: any;
     errors: any;
 }
 
@@ -24,7 +25,7 @@ interface CreateAnnouncementProviderProps {
 }
 
 export const CreateAnnouncementProvider = ({ children }: CreateAnnouncementProviderProps) => {
-    const { register,  formState: { errors }, trigger,getValues,watch   } = useForm<CreateAnnouncementData>({
+    const { register,  formState: { errors }, trigger,getValues,watch ,setValue  } = useForm<CreateAnnouncementData>({
         resolver: zodResolver(createAnnouncementSchema),
         mode: "onChange",
     });
@@ -52,11 +53,12 @@ export const CreateAnnouncementProvider = ({ children }: CreateAnnouncementProvi
     const onSubmit = async () => {
         const formData = getValues();
         try {
-            const validatedData = await createAnnouncementSchema.parseAsync(formData);
-
+           const validatedData = await createAnnouncementSchema.parseAsync(formData);
             console.log("Submit", validatedData);
+            
             // createAdvertisement(bodydata);
         } catch (error) {
+            console.log("error", error);
         }
     };
 
@@ -69,6 +71,7 @@ export const CreateAnnouncementProvider = ({ children }: CreateAnnouncementProvi
                 isStepValid,
                 onSubmit,
                 register,
+                setValue,
                 errors}
             }>
             {children}
