@@ -6,9 +6,9 @@ const phoneRegex = new RegExp(
 const isBase64 = (str: string) => {
   const base64Pattern = /^data:image\/[a-zA-Z]+;base64,/;
   if (base64Pattern.test(str)) {
-    str = str.replace(base64Pattern, '');
+    str = str.replace(base64Pattern, "");
   }
-  
+
   try {
     return btoa(atob(str)) === str;
   } catch (e) {
@@ -16,22 +16,32 @@ const isBase64 = (str: string) => {
   }
 };
 
-const CategoryEnum = z.enum(["Aula Particular", "Movéis", "Livros"]);
+const CategoryEnum = z.enum(["Aula Particular", "Movéis", "Livros","Roupa"]);
 const ItemTypeEnum = z.enum(["Busca de Item", "Procura de Item"]);
 const LocalizationEnum = z.enum([
   "Praia Vermelha",
   "Gragoatá",
   "Valonguinho",
-  "Reitoria",
-  "HUAP",
+  "Santo Antonio de Padua",
+  "Campos dos Goytacazes",
 ]);
+
+const categoryMap = { "Livros": 0, "Roupa": 1, "Movéis": 2, "Aula Particular": 3 };
+const campusMap = {
+  "Praia Vermelha": 0,
+  "Gragoatá": 1,
+  "Valonguinho": 2,
+  "Santo Antonio de Padua": 3,
+  "Campos dos Goytacazes": 4,
+};
+const itemTypeMap = { "Busca de Item": 0, "Procura de Item": 1 };
 
 export const createAnnouncementSchema = z.object({
   title: z.string().min(1, { message: "Campo obrigatório" }),
   description: z.string().min(1, { message: "Campo obrigatório" }),
-  category: CategoryEnum,
-  item_type: ItemTypeEnum,
-  localization: LocalizationEnum,
+  category: CategoryEnum.transform((val) => categoryMap[val]),
+  item_type: ItemTypeEnum.transform((val) => itemTypeMap[val]),
+  campus: LocalizationEnum.transform((val) => campusMap[val]),
   price: z
     .string()
     .min(1, { message: "Campo obrigatório" })
@@ -45,11 +55,11 @@ export const createAnnouncementSchema = z.object({
     .refine((val) => !isNaN(val) && val >= 0.0001 && val <= 999999999, {
       message: "Preço deve estar entre 0.0001 e 999999999",
     }),
-  email: z
+  email_contact: z
     .string()
     .min(1, { message: "Campo obrigatório" })
     .email({ message: "E-mail inválido" }),
-  phone: z
+  phone_contact: z
     .string()
     .min(1, { message: "Campo obrigatório" })
     .regex(phoneRegex, { message: "Telefone inválido" })
@@ -59,7 +69,7 @@ export const createAnnouncementSchema = z.object({
       z
         .string()
         .refine(isBase64, { message: "Imagem em formato base64 inválido" })
-        .transform((str) => str.replace(/^data:image\/[a-zA-Z]+;base64,/, '')) // Remover prefixo base64
+        .transform((str) => str.replace(/^data:image\/[a-zA-Z]+;base64,/, "")) // Remover prefixo base64
     )
     .optional(),
 });

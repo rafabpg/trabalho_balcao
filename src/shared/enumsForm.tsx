@@ -2,6 +2,7 @@ export enum CategoryEnum {
     AULA_PARTICULAR = 'Aula Particular',
     MOVEIS = 'Movéis',
     LIVROS = 'Livros',
+    ROUPA = 'Roupa',
   }
   
   export enum ItemTypeEnum {
@@ -13,6 +14,6 @@ export enum CategoryEnum {
     PRAIA_VERMELHA = 'Praia Vermelha',
     GRAGOATA = 'Gragoatá',
     VALONGUINHO = 'Valonguinho',
-    REITORIA = 'Reitoria',
-    HUAP = 'HUAP',
+    SANTO_ANTONIO_DE_PADUA = 'Santo Antonio de Padua',
+    CAMPUS_DOS_GOYTACAZES = 'Campos dos Goytacazes',
   }
