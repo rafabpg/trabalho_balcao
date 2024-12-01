@@ -1,33 +1,57 @@
 import Button from "@/components/Atoms/Button";
-
+import axios from "axios";
 import React, { useState } from 'react'
 import {MouseEvent} from "react";
 const LoginForm =() => {
-
 const [CPF,setCPF] = useState('')
 const [password,setPassword] = useState('')
 const [CPFError,setCPFError] = useState('')
 const [passwordError,setPasswordError] = useState('')
 
+
+
 const onButtonClick = (event:MouseEvent) => {
     if('' == CPF){
         setCPFError("Insira seu CPF")
     }
-    else if(!((/^[0-9]{3,3}\.[0-9]{3,3}\.[0-9]{3,3}\-[0-9]{2,2}$/.test(CPF)) ||  (/^[0-9]{3,3}[0-9]{3,3}[0-9]{3,3}[0-9]{2,2}$/.test(CPF)))){
+    else if(!((/^[0-9]{3,3}\.[0-9]{3,3}\.[0-9]{3,3}\-[0-9]{2,2}$/.test(CPF)))){
         setCPFError("CPF inválido")
     }
-    else{
-        setCPFError('')
+    
+    if((password != '') && (CPF != '')){
+        
+        const url = 'https://dynamic-herring-cosmic.ngrok-free.app/api/v1/auth/sign_in';
+
+        const data = {
+          cpf: CPF,
+          password: password
+         
+        };
+
+            axios.post(url,data)
+                .then((response) => {
+                setCPFError("");
+                setPasswordError("");
+                const auth = {accessToken :response.headers['access-token'], client : response.headers['client'] , uid: response.headers['uid'] }
+                const CookieData = JSON.stringify(auth);
+                document.cookie = `auth=${CookieData}; path=/; expires=${new Date(Date.now() + 31536000).toUTCString()};`;
+                
+                window.location.href = '/';
+
+                })
+                .catch(error => {
+                  console.error(error);
+                  setPasswordError("Login e senha inválidos");
+                  console.log("login inválido");
+                });   
+                
+        
+
+
+            
     }
-    if('' == password){
-        setPasswordError("Insira sua senha")
-    }
-    else{
-        setPasswordError('')
-    }
-    if((CPFError == '') && (passwordError == '') && (password != '') && (CPF != '')){
-        window.location.href = '/'
-    }
+
+
 
 };
 
