@@ -11,7 +11,7 @@ interface Ad {
   price: string;
   isInNegotiation: boolean;
   isActive: boolean;
-  isCreatedByUser: boolean; // Indica se o anúncio foi criado pelo usuário logado
+  isCreatedByUser: boolean;
 }
 
 interface SimpleFilters {
@@ -35,7 +35,7 @@ const MyAds: React.FC = () => {
       price: `R$ ${(Math.random() * 100).toFixed(2)}`,
       isInNegotiation: i % 2 === 0,
       isActive: i % 3 !== 0,
-      isCreatedByUser: i % 4 === 0, // Mock: anúncios criados pelo usuário
+      isCreatedByUser: i % 4 === 0,
     }));
 
     setAds(mockAds);
@@ -67,7 +67,6 @@ const MyAds: React.FC = () => {
 
   const handleEdit = (id: string) => {
     console.log(`Editar anúncio ${id}`);
-    // Navegar para a página de edição (mock)
   };
 
   const totalPages = Math.ceil(filteredAds.length / adsPerPage);
@@ -79,17 +78,15 @@ const MyAds: React.FC = () => {
     <div className="p-4">
       <div className="flex justify-center mb-4">
         <button
-          className={`w-28 px-6 py-2 rounded-l-md ${
-            statusFilter === 'active' ? 'bg-blue-950 text-white font-bold' : 'bg-gray-300 text-gray-700'
-          }`}
+          className={`w-28 px-6 py-2 rounded-l-md ${statusFilter === 'active' ? 'bg-blue-950 text-white font-bold' : 'bg-gray-300 text-gray-700'
+            }`}
           onClick={() => handleStatusToggle('active')}
         >
           Ativos
         </button>
         <button
-          className={`w-28 px-6 py-2 rounded-r-md ${
-            statusFilter === 'inactive' ? 'bg-blue-950 text-white font-bold' : 'bg-gray-300 text-gray-700'
-          }`}
+          className={`w-28 px-6 py-2 rounded-r-md ${statusFilter === 'inactive' ? 'bg-blue-950 text-white font-bold' : 'bg-gray-300 text-gray-700'
+            }`}
           onClick={() => handleStatusToggle('inactive')}
         >
           Passados
@@ -98,7 +95,17 @@ const MyAds: React.FC = () => {
 
       <SimpleFilterBar onApplyFilters={handleApplyFilters} />
 
-      <div className="flex flex-col gap-4 max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto text-gray-700 font-semibold p-2 rounded-t-lg">
+        <div className="w-10/12 grid grid-cols-4 items-center gap-4 justify-between">
+          <span className="text-left flex-shrink-0">Nome</span>
+          <span className="text-left flex-shrink-0">Localização</span>
+          <span className="text-left flex-shrink-0">Categoria</span>
+          <span className="text-left flex-shrink-0">Valor</span>
+        </div>
+        <hr className="border-gray-400 mt-2" />
+      </div>
+
+      <div className="flex flex-col gap-2 max-w-4xl mx-auto">
         {currentAds.map((ad) => (
           <AdList
             key={ad.id}
