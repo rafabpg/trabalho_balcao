@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import SimpleFilterBar from '@/components/Organisms/SimpleFilterBar';
-import AdCard from '@/components/Organisms/AdCard';
+import AdList from '@/components/Organisms/AdList';
 import Pagination from '@/components/Molecules/Pagination';
 
 interface Ad {
   id: string;
-  userName: string;
-  userImage: string;
-  rating: number;
   adTitle: string;
-  adDate: string;
-  adImage: string;
   location: string;
   category: string;
   price: string;
   isInNegotiation: boolean;
   isActive: boolean;
+  isCreatedByUser: boolean; // Indica se o anúncio foi criado pelo usuário logado
 }
 
 interface SimpleFilters {
@@ -30,21 +26,16 @@ const MyAds: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState('active');
   const adsPerPage = 6;
 
-  // Mock de dados simulando uma chamada ao backend
   useEffect(() => {
     const mockAds: Ad[] = Array.from({ length: 20 }, (_, i) => ({
       id: (i + 1).toString(),
-      userName: 'Jão Pernalonga',
-      userImage: '',
-      rating: parseFloat((Math.random() * 2 + 3).toFixed(1)),
       adTitle: `Título do Anúncio ${i + 1}`,
-      adDate: '20 de out. de 2024',
-      adImage: '',
       location: `Localização ${String.fromCharCode(65 + (i % 5))}`,
       category: ['Livros', 'Eletrônicos', 'Móveis', 'Roupas', 'Brinquedos'][i % 5],
       price: `R$ ${(Math.random() * 100).toFixed(2)}`,
       isInNegotiation: i % 2 === 0,
       isActive: i % 3 !== 0,
+      isCreatedByUser: i % 4 === 0, // Mock: anúncios criados pelo usuário
     }));
 
     setAds(mockAds);
@@ -54,13 +45,9 @@ const MyAds: React.FC = () => {
   const handleApplyFilters = (filters: SimpleFilters) => {
     const filtered = ads.filter((ad) => {
       const matchesSearch = ad.adTitle.toLowerCase().includes(filters.searchTerm.toLowerCase());
-      const matchesCustomFilter =
-        filters.customFilter === 'all'
-          ? ad.isInNegotiation || ad.userName === 'Jão Pernalonga'
-          : ad.userName === 'Jão Pernalonga';
       const matchesStatus = statusFilter === 'active' ? ad.isActive : !ad.isActive;
 
-      return matchesSearch && matchesCustomFilter && matchesStatus;
+      return matchesSearch && matchesStatus;
     });
 
     setFilteredAds(filtered);
@@ -71,6 +58,16 @@ const MyAds: React.FC = () => {
     setStatusFilter(status);
     setCurrentPage(1);
     handleApplyFilters({ searchTerm: '', customFilter: 'all' });
+  };
+
+  const handleDelete = (id: string) => {
+    console.log(`Excluir anúncio ${id}`);
+    setFilteredAds((prev) => prev.filter((ad) => ad.id !== id));
+  };
+
+  const handleEdit = (id: string) => {
+    console.log(`Editar anúncio ${id}`);
+    // Navegar para a página de edição (mock)
   };
 
   const totalPages = Math.ceil(filteredAds.length / adsPerPage);
@@ -101,12 +98,19 @@ const MyAds: React.FC = () => {
 
       <SimpleFilterBar onApplyFilters={handleApplyFilters} />
 
-      <div className="flex justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl">
-          {currentAds.map((ad) => (
-            <AdCard key={ad.id} {...ad} />
-          ))}
-        </div>
+      <div className="flex flex-col gap-4 max-w-4xl mx-auto">
+        {currentAds.map((ad) => (
+          <AdList
+            key={ad.id}
+            adTitle={ad.adTitle}
+            location={ad.location}
+            category={ad.category}
+            price={ad.price}
+            isCreatedByUser={ad.isCreatedByUser}
+            onDelete={() => handleDelete(ad.id)}
+            onEdit={() => handleEdit(ad.id)}
+          />
+        ))}
       </div>
 
       <Pagination currentPage={currentPage} totalPages={totalPages} paginate={setCurrentPage} />
