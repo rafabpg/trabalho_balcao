@@ -10,7 +10,13 @@ const Header = () => {
     const [isOpenDropDown, setIsOpenDropDown] = useState<boolean>(false)
 
     const handleLogout = () => {
-        console.log("Logout")
+        const cookies = document.cookie.split('; ');
+        for (const cookie of cookies) {
+          const [name, value] = cookie.split('=');
+          document.cookie = `${name}=; expires=Thu, 01-Jan-1970 00:00:00 GMT;`;
+        }
+        console.log("logout");
+        console.log(document.cookie);
     }   
 
     const isMobile = useMediaQuery('(max-width: 768px)')
