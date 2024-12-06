@@ -9,14 +9,15 @@ interface UserChatProps {
   category: string;
   date: string;
   isNew?: boolean;
+  onProposalAccepted: (userName: string) => void;
 }
 
-const UserChat: React.FC<UserChatProps> = ({ userName, message, category, date, isNew = false }) => {
+const UserChat: React.FC<UserChatProps> = ({ userName, message, category, date, isNew = false, onProposalAccepted }) => {
   const [isProposalOpen, setIsProposalOpen] = useState(false);
 
   const handleAccept = () => {
-    console.log("Proposta aceita.");
     setIsProposalOpen(false);
+    onProposalAccepted(userName);
   };
 
   const handleReject = () => {
