@@ -1,64 +1,53 @@
+import React from 'react';
+import X from "@/assets/icons/X.svg";
 
-import React, { useState } from 'react';
-import X from "@/assets/icons/X.svg"
-import Star from "@/assets/icons/Star 3.png";
-import fadedStar from "@/assets/icons/Star 2.png";
-import Input from '../Atoms/Input';
-import Text from "@/assets/icons/textbubble.png";
-import Button from '../Atoms/Button';
+interface ProposalModalProps {
+  onClose: () => void;
+  sellerName: string; // Nome do vendedor
+  productPrice: number; // Preço do produto
+}
 
+const ProposalModal: React.FC<ProposalModalProps> = ({ onClose, sellerName, productPrice }) => {
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <div className="bg-white p-6 rounded-lg w-96 relative">
+        {/* Botão para fechar o modal */}
+        <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+          <img src={X} alt="Close" className="w-6 h-6" />
+        </button>
 
+        {/* Conteúdo do modal */}
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Envie sua Proposta</h2>
+          <p className="text-gray-700 text-sm mb-4">
+            Você enviará uma proposta para o anunciante <span className="font-semibold">{sellerName}</span>, na qual poderá perguntar se ele faz algum desconto e negociar questões de entrega e pagamento.
+            <br />
+            O valor do produto anunciado é <span className="font-semibold">R${productPrice.toFixed(2)}</span>.
+            Não aceite valores maiores que esse.
+          </p>
+          <p className="text-gray-700 text-sm mb-4">
+            Ao enviar esta proposta, você concorda com todos os <span className="font-semibold">termos e serviços</span> da plataforma.
+            Caso o anunciante aceite, ambos estarão sob um contrato de negociação e poderão se avaliar ao final, independentemente do fechamento do acordo.
+          </p>
 
+          <textarea
+            className="border border-gray-300 rounded-md w-full p-2 mt-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Escreva sua proposta aqui..."
+          />
 
-const RatingModal = () => {
-
-        const[rating,setRating] = useState(1)
-        const[opinion,setOpinion] = useState("")
-        const [visivel,setVisivel] = useState(true)
-        const visibilidade = visivel ? '' : "hidden"
-        const toggleOff = () => {
-            setVisivel(false)
-        }
-        
-
-        const submit = () => {
-            //substituir console.log por integração com backend
-            console.log(rating);
-            console.log(opinion);
-        }
-
-        return(
-        
-        
-        <div className =  {visibilidade+ "  transform -translate-x-2/4 -translate-y-2/4 top-2/4 left-2/4 ml-auto mr-auto bg-white absolute z-50 p-4 w-[1000px] h-[650px] border-2 border-lighter-primary rounded-md"}>
-            <button className = "float-right h-16 w-16" onClick = {toggleOff}> 
-            <img className="w-16" src={X}/>
-            </button>
-                <div className="ml-22 mt-4 text-2xl font-seraf text-center justify-center">AVALIAÇÃO</div>
-                <div className='text-2xl font-seraf mt-10'>O que você achou do anúncio?</div>
-                <div className="text-2xl text-lighter-primary mt-2">Escolha 1 a 5 estrelas para classificar.</div>
-                <div className = "mt-4 grid grid-cols-5 grid-rows-1 max-w-sm justify-items-center items-center">
-                    <button onClick = {() =>{setRating(1)}} className="h-16 w-16"><img className = "object-cover" src={(rating >= 1) ? Star : fadedStar}></img></button>
-                    <button onClick = {() =>{setRating(2)}} className="h-16 w-16"><img className = "object-cover" src={(rating >= 2) ? Star : fadedStar}></img></button>
-                    <button onClick = {() =>{setRating(3)}} className="h-16 w-16"><img className = "object-cover" src={(rating >= 3) ? Star : fadedStar}></img></button>
-                    <button onClick = {() =>{setRating(4)}} className="h-16 w-16"> <img className = "object-cover" src={(rating >= 4) ? Star : fadedStar}></img></button>
-                    <button onClick = {() =>{setRating(5)}} className="h-16 w-16"><img className = "object-cover" src={(rating >= 5) ? Star : fadedStar}></img></button>
-                </div>
-                <div className="flex mt-16" >
-                <img className="mt-2 h-6 w-6 mr-2" src={Text}/>
-                <span className="text-2xl" >Deixe sua opinião</span>
-                </div>
-                <div className="float-right text-lighter-primary text-2xl">{opinion.length}/300</div>
-                <textarea onChange={(ev)=>setOpinion(ev.target.value)}  maxLength= {300} className = "resize-none break-words text-2xl h-48 max-w-screen-lg  sm:md-full lg:w-full md:w-full placeholder-lighter-primary" placeholder='Conte sua experiência (opcional)'/>
-                <Button className= "mt-2 float-right w-48 h-12" text="ENVIAR" onClick = {submit}/>
-
-
-
-
-
+          <button
+            onClick={() => {
+              console.log("Proposta enviada");
+              onClose();
+            }}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            Enviar Proposta
+          </button>
         </div>
-    
-    
-    )
+      </div>
+    </div>
+  );
+};
 
-}; export default RatingModal;
+export default ProposalModal;

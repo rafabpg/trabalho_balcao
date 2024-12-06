@@ -1,9 +1,8 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import X from "@/assets/icons/X.svg"
 import Star from "@/assets/icons/Star 3.png";
 import fadedStar from "@/assets/icons/Star 2.png";
-import Input from '../Atoms/Input';
 import Text from "@/assets/icons/textbubble.png";
 import Button from '../Atoms/Button';
 
