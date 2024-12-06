@@ -3,20 +3,19 @@ import X from "@/assets/icons/X.svg";
 
 interface ProposalModalProps {
   onClose: () => void;
-  sellerName: string; // Nome do vendedor
-  productPrice: number; // Preço do produto
+  sellerName: string;
+  productPrice: number;
 }
 
 const ProposalModal: React.FC<ProposalModalProps> = ({ onClose, sellerName, productPrice }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-6 rounded-lg w-96 relative">
-        {/* Botão para fechar o modal */}
+
         <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
           <img src={X} alt="Close" className="w-6 h-6" />
         </button>
 
-        {/* Conteúdo do modal */}
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">Envie sua Proposta</h2>
           <p className="text-gray-700 text-sm mb-4">
