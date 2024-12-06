@@ -26,7 +26,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ userName, category, messages, onSendM
   };
 
   return (
-    <div className="flex flex-col w-full max-w-[800px] border-l border-gray-300 bg-white">
+    <div className="flex flex-col w-full h-full bg-white">
       <div className="flex items-center justify-between px-4 py-3 bg-gray-100 border-b border-gray-300">
         <div>
           <h2 className="font-semibold text-lg">{userName}</h2>
@@ -40,13 +40,11 @@ const ChatBox: React.FC<ChatBoxProps> = ({ userName, category, messages, onSendM
         </button>
       </div>
 
-      <div className="flex flex-col flex-grow p-4 overflow-y-auto space-y-4">
+      <div className="flex-grow p-4 overflow-y-auto">
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`flex ${
-              message.isUserMessage ? 'justify-end' : 'justify-start'
-            }`}
+            className={`flex ${message.isUserMessage ? 'justify-end' : 'justify-start'}`}
           >
             <div
               className={`px-4 py-2 rounded-lg ${
@@ -62,7 +60,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ userName, category, messages, onSendM
         ))}
       </div>
 
-      <div className="flex items-center border-t border-gray-300 p-3">
+      <div className="flex items-center border-t border-gray-300 p-3 bg-gray-100 sticky bottom-0">
         <input
           type="text"
           placeholder="Digite sua mensagem..."
