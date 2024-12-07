@@ -21,8 +21,10 @@ interface ad{
     email_contact: ""
     created_at : string
     updated_at: string
-    user: string
-    user_rating: number
+    user: {
+      full_name: string
+      rating: string
+    }
     images_urls: string[]
 }
 
@@ -31,25 +33,57 @@ const AdPage = () => {
 const {adId} = useParams();
 
 const [ad,setAd] = useState<ad>();
-const [img1,setImg1] = useState('');
+const [img1, setImg1] = useState<Blob>();
+
+
 
 const url = "https://dynamic-herring-cosmic.ngrok-free.app/api/v1/advertisements/" +adId;
 
 
 useEffect(() =>{
+   
+  var authData = {accessToken: "" , uid: "", client: "" };
+    if (document.cookie != "") {
+      const cookieData = document.cookie.match(/auth=([^;]*)/)![1];
+      authData = JSON.parse(cookieData);
+  }
     axios.get(url, {
         headers: {
           'Content-Type': 'application/json',
           'ngrok-skip-browser-warning': '69420',
+          'access-token': authData.accessToken,
+          'uid' : authData.uid,
+          'client' : authData.client
         },
       })
         .then((response) => {
-          console.log(response.data);
           setAd(response.data);
+          console.log(response.data);
+          
+          fetch(response.data.images_urls[0], {
+            headers: {
+              'Content-Type': 'image/png',
+              'ngrok-skip-browser-warning': '69420',
+              'access-token': authData.accessToken,
+              'uid' : authData.uid,
+              'client' : authData.client
+            }, })
+            .then((response) => response.blob())
+            .then((blob) => {
+              console.log(blob);
+              setImg1(blob);
+
+            })
+            .catch(error => {
+              console.error(error);
+            });  
+              
         })
         .catch(error => {
           console.error(error);
         });   
+      
+      
 
 },[]);
 
@@ -68,9 +102,9 @@ return(
         <div className="flex justify-center">
             <div className = "grid grid-rows-2 grid-cols-1 h-screen" >
             <div className = "grid grid-cols-3 grid-rows-1 h-full gap-2">
-                <img  crossOrigin = "anonymous" src = {ad?.images_urls[0]} className = "block  w-full border border-secondary h-full rounded object-cover" />
-                <img src = {ad?.images_urls[1]} className = "block  w-full border border-secondary rounded h-full object-cover" />
-                <img src = {ad?.images_urls[2]} className = "block  w-full border border-secondary h-full rounded object-cover" />
+                <img  crossOrigin = "anonymous" src = {URL.createObjectURL(img1!)} className = "block  w-full border border-secondary h-full rounded object-cover" />
+                <img src = {""} className = "block  w-full border border-secondary rounded h-full object-cover" />
+                <img src = {""} className = "block  w-full border border-secondary h-full rounded object-cover" />
             </div>
             
                 <div className = "grid grid-cols-2 grid-rows-1">
@@ -99,10 +133,10 @@ return(
                             <div className = "flex items-center text-center border border-secondary rounded-md w-96 h-40 ml-auto mt-10">
                             <div className = "bg-lighter-primary rounded-full w-28 h-28 mt-4 ml-4 " ></div>
                             <span className="grid grid-rows-2 w-64">
-                                <div className ="text-3xl font-sans text-primary-darker text-left mt-8">{ad?.user}</div>
+                                <div className ="text-3xl font-sans text-primary-darker text-left mt-8">{ad?.user.full_name}</div>
                                 <div className="flex items-center text-center w-auto h-9">
                                 <img src={Star} className="mr-2"></img>
-                                <span className = "text-primary-darker text-base">{parseFloat(ad?.user_rating!.toString()!).toFixed(2).toString()}</span></div>
+                                <span className = "text-primary-darker text-base">{parseFloat(ad?.user.full_name.toString()!).toFixed(2).toString()}</span></div>
                             </span>
                             </div>
 
