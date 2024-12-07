@@ -22,12 +22,10 @@ interface ad{
     updated_at: string
     user: {
       full_name: string
-      rating: string
+      rating: string | undefined
     }
     images_urls: string[]
 }
-
-const loremipsum = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
 
 const AdPage = () => {
 const { adId } = useParams();
@@ -36,6 +34,7 @@ const [ad,setAd] = useState<ad>();
 const [img1, setImg1] = useState('');
 const [img2, setImg2] = useState('');
 const [img3, setImg3] = useState('');
+const [ratingUndef, setRatingDef] = useState(false);
 
 
 const url = "https://dynamic-herring-cosmic.ngrok-free.app/api/v1/advertisements/" +adId;
@@ -56,6 +55,9 @@ useEffect(() =>{
           },
         })
           .then((response) => {
+            if(response.data.user.rating == undefined){
+                setRatingDef(true);
+            }
             setAd(response.data);
             
             fetch(response.data.images_urls[0], {
@@ -153,7 +155,7 @@ useEffect(() =>{
                     <div className="text-3xl font-sans text-primary-darker text-left mt-8">{ad?.user.full_name}</div>
                     <div className="flex items-center text-center w-auto h-9">
                       <img src={Star} className="mr-2" alt="Star" />
-                      <span className="text-primary-darker text-base">{parseFloat(ad?.user.full_name.toString()!).toFixed(2).toString()}</span>
+                      <span className="text-primary-darker text-base">{ratingUndef? "Nenhuma" : parseFloat(ad?.user.rating!.toString()!).toFixed(2).toString()}</span>
                     </div>
                   </span>
                 </div>
