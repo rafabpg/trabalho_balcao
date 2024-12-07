@@ -5,7 +5,8 @@ import  api  from "./api";
 type HttRequest = {
     url:string,
     method:string,
-    body?:any
+    body?:any,
+    headers?: { [key: string]: string };
 }
 
 export interface HttpClient<R = any> {
@@ -21,6 +22,7 @@ export class AxiosHttpClientAdapter implements HttpClient {
                 url: data.url,
                 method: data.method,
                 data: data.body,
+                headers: data.headers
             })
         } catch (error) {
             const _error = error as AxiosError<{message:string}>

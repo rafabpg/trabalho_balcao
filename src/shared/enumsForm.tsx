@@ -7,7 +7,7 @@ export enum CategoryEnum {
   
   export enum ItemTypeEnum {
     BUSCA_DE_ITEM = 'Busca de Item',
-    PROCURA_DE_ITEM = 'Procura de Item',
+    OFERTA_DE_ITEM = 'Oferta de Item',
   }
   
   export enum LocalizationEnum {

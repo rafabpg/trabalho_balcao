@@ -5,15 +5,17 @@ type PostDataProps<T = unknown> = {
   httpClient: HttpClient;
   data: T;
   url: string;
+  headers?:any
 };
 
 const usePostData = () => {
   const mutation = useMutation({
-    mutationFn: async ({ httpClient, data, url }: PostDataProps) => {
+    mutationFn: async ({ httpClient, data, url,headers }: PostDataProps) => {
       const response = await httpClient.request({
         url: url,
         method: "post",
         body: data,
+        headers: headers
       });
       return { data: response.body, status: response.statusCode };
     },

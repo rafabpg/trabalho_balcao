@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import usePostData from "@/hooks/usePostData";
 import { AxiosHttpClientAdapter } from "@/services/axiosAdapter";
+import { getCookieValue } from "@/utils/getCookiesAux";
 
 type CreateAnnouncementData = z.infer<typeof createAnnouncementSchema>;
 
@@ -33,7 +34,6 @@ export const CreateAnnouncementProvider = ({
   const {
     register,
     formState: { errors },
-    trigger,
     reset,
     getValues,
     watch,
@@ -42,6 +42,7 @@ export const CreateAnnouncementProvider = ({
     resolver: zodResolver(createAnnouncementSchema),
     mode: "onChange",
   });
+
   const { mutateAsync } = usePostData();
 
   const [stepState, setStepState] = useState<number>(1);
@@ -49,15 +50,8 @@ export const CreateAnnouncementProvider = ({
 
   const requiredFields: Array<keyof CreateAnnouncementData> =
     stepState === 1
-      ? [
-          "title",
-          "description",
-          "price",
-          "category",
-          "item_type",
-          "campus",
-        ]
-      : ["email_contact", "phone_contact", "images"];
+      ? ["title", "description", "category", "item_type", "campus"]
+      : ["email_contact", "phone_contact"];
 
   const watchedFields = watch(requiredFields);
 
@@ -73,18 +67,30 @@ export const CreateAnnouncementProvider = ({
   const onSubmit = async () => {
     const formData = getValues();
     try {
+      formData.user_id = "cd34153f-c45f-46e7-a447-47c25a7a1a2f";
+      const client_auth = getCookieValue("auth", "client");
+      const uid_auth = getCookieValue("auth", "uid");
+      const token_acess_auth = getCookieValue("auth", "accessToken");
       const validatedData = await createAnnouncementSchema.parseAsync(formData);
-      console.log("validatedData", validatedData);
-      // const response = await mutateAsync({
-      //   httpClient: new AxiosHttpClientAdapter(),
-      //   data: validatedData,
-      //   url: "/user",
-      // });
+      await mutateAsync({
+        httpClient: new AxiosHttpClientAdapter(),
+        data: validatedData,
+        url: "/advertisements",
+        headers: {
+          "access-token": token_acess_auth?.trim(),
+          client: client_auth?.trim(),
+          uid: uid_auth?.trim(),
+        },
+      });
       alert("Anuncio criado com sucesso!");
-      reset()
-      setStepState(1)
-    } catch (error:any) {
-      alert(`Erro ao criar anúncio: ${error.errors.map(err => err.message).join(", ")}`); 
+      reset();
+      setStepState(1);
+    } catch (error: any) {
+      alert(
+        `Erro ao criar anúncio: ${error.errors
+          .map((err) => err.message)
+          .join(", ")}`
+      );
     }
   };
 
