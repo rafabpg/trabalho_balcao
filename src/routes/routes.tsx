@@ -5,8 +5,6 @@ import MyAds from "@/pages/MyAds";
 import LoginPage from "@/pages/LoginPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdPage from "@/pages/AdPage";
-
-import RatingModal from "@/components/Organisms/RatingModal";
 import ProfileTemplate from "@/template/ProfileTemplate";
 import ProfileDisplay from "@/components/Organisms/ProfileDisplay";
 import ProfileEdition from "@/components/Organisms/ProfileEdition";
@@ -32,7 +30,6 @@ const AppRoutes = () => {
           <Route path="criar-anuncios" element={<ProtectedRoute element = {<CreateAnnouncementPage />}/>} />
           <Route path="anuncio/:adId" element={<ProtectedRoute element = {<AdPage />}/>} />
         </Route>
-        <Route path="/rating" element={<ProtectedRoute element = {<RatingModal />}/>} />
       </Routes>
     </BrowserRouter>
   );

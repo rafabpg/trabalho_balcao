@@ -24,7 +24,7 @@ const CreateAnnouncementStep2 = () => {
               placeholder="(xx) 99999-9999"
               className="max-w-[282px] lg:w-[282px]"
               label="Digite o telefone para contato"
-              {...register("phone")}
+              {...register("phone_contact")}
               error={errors.phone?.message}
               mask={{
                 mask: "(__) _____-____",
@@ -38,7 +38,7 @@ const CreateAnnouncementStep2 = () => {
               type="text"
               placeholder="ex:teste@gmail.com"
               className="max-w-[282px] lg:w-[282px]"
-              {...register("email")}
+              {...register("email_contact")}
               error={errors.email?.message}
               label="Digite o email para contato"
               errorMessage={errors.email?.message}
