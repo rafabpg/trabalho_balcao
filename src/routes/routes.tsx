@@ -32,7 +32,6 @@ const AppRoutes = () => {
           <Route path="criar-anuncios" element={<ProtectedRoute element = {<CreateAnnouncementPage />}/>} />
           <Route path="anuncio/:adId" element={<ProtectedRoute element = {<AdPage />}/>} />
         </Route>
-        <Route path="/rating" element={<ProtectedRoute element = {<RatingModal />}/>} />
       </Routes>
     </BrowserRouter>
   );
