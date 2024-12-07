@@ -21,7 +21,7 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ onClose, sellerName, prod
           <p className="text-gray-700 text-sm mb-4">
             Você enviará uma proposta para o anunciante <span className="font-semibold">{sellerName}</span>, na qual poderá perguntar se ele faz algum desconto e negociar questões de entrega e pagamento.
             <br />
-            O valor do produto anunciado é <span className="font-semibold">R${productPrice.toFixed(2)}</span>.
+            O valor do produto anunciado é <span className="font-semibold">{`R$${parseFloat(productPrice.toString()!).toFixed(2).toString()}`}</span>.
             Não aceite valores maiores que esse.
           </p>
           <p className="text-gray-700 text-sm mb-4">

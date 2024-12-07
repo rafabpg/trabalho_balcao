@@ -2,7 +2,7 @@ import Loc from "@/assets/icons/local.png"
 import TagIcon from "../Atoms/TagIcon"
 
 interface TagProps{
-    text: string
+    text: string | null
     categoria: boolean
 }
 

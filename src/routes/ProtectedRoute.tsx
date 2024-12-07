@@ -19,7 +19,6 @@ const ProtectedRoute: React.FC<RouteProps> = ({element}:RouteProps) => {
       const cookieData = document.cookie.match(/auth=([^;]*)/)![1];
       authData = JSON.parse(cookieData);
   }
-
     axios.get(url, {
       headers: {
         'access-token': authData.accessToken,

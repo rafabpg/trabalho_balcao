@@ -35,7 +35,7 @@ const onButtonClick = (event:MouseEvent) => {
                 const auth = {accessToken :response.headers['access-token'], client : response.headers['client'] , uid: response.headers['uid'] }
                 const CookieData = JSON.stringify(auth);
                 document.cookie = `auth=${CookieData}; path=/; expires=${new Date(Date.now() + 31536000).toUTCString()};`;
-                
+                console.log(auth);
                 window.location.href = '/';
 
                 })
