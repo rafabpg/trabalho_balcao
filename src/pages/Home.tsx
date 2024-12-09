@@ -4,6 +4,7 @@ import SearchAndFilterBar from '@/components/Organisms/SearchAndFilterBar';
 import AdCard from '@/components/Organisms/AdCard';
 import Pagination from '@/components/Molecules/Pagination';
 import useFilterAds from '@/hooks/useFilterAds';
+import { useAuth } from '@/hooks/useAuth';
 
 interface Ad {
   id: string;
@@ -27,6 +28,9 @@ interface Filters {
 }
 
 const Home: React.FC = () => {
+  const {currentUser} = useAuth();
+  console.log(currentUser)
+
   const [ads, setAds] = useState<Ad[]>([]);
   const [filters, setFilters] = useState<Filters>({
     searchTerm: '',

@@ -57,7 +57,7 @@ const CreateAnnouncementStep1 = () => {
                     errorMessage={errors.item_type?.message} 
                     />
                 <SelectField 
-                    {...register("localization")}
+                    {...register("campus")}
                     options={Object.values(LocalizationEnum).map(value => ({ label: value, value }))}
                     placeholder="Selecione uma localização" 
                     label="Localização do anúncio" 

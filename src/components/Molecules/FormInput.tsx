@@ -12,12 +12,16 @@ interface FormInputProps {
     prefix?: string
     errorMessage?: string
     className?: string
+    value?:any
+    disabled?:boolean
+    labelClassName?:string
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({type,className,prefix,  placeholder,  label,mask,errorMessage, ...props},ref) => {
+const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({type,className,prefix,  placeholder,  label,mask,errorMessage,value, onChange,disabled,labelClassName,...props},ref) => {
     return (
         <div className="flex flex-col gap-3">
-          {label && <Label>{label}</Label>}
+          {label && <Label className={labelClassName}>{label}</Label>}
           <Input
             type={type}
             ref={ref}
@@ -25,6 +29,9 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({type,className,
             placeholder={placeholder}
             prefix={prefix}
             className={className}
+            disabled={disabled}
+            value={value}
+            onChange ={onChange}
             {...props}
           />    
           {errorMessage && <span className="text-red-color text-sm">{errorMessage}</span>}

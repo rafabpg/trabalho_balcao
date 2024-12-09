@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import DesktopNav from "../Molecules/DesktopNav";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import MobileNav from "../Molecules/MobileNav";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
 
@@ -9,9 +10,17 @@ const Header = () => {
     const [isOpenMobileMenu, setIsOpenMobileMenu] = useState<boolean>(false)
     const [isOpenDropDown, setIsOpenDropDown] = useState<boolean>(false)
 
-    const handleLogout = () => {
-        console.log("Logout")
-    }   
+    // const logout = () => {
+    //     const cookies = document.cookie.split('; ');
+    //     for (const cookie of cookies) {
+    //       const [name, value] = cookie.split('=');
+    //       document.cookie = `${name}=; expires=Thu, 01-Jan-1970 00:00:00 GMT;`;
+    //     }
+    //     console.log("logout");
+    //     console.log(document.cookie);
+    // }
+
+    const { logout } = useAuth();
 
     const isMobile = useMediaQuery('(max-width: 768px)')
 
@@ -30,12 +39,12 @@ const Header = () => {
                         setIsOpenMenu={setIsOpenMobileMenu}
                         setIsOpenDropDown={setIsOpenDropDown}
                         isOpenDropDown={isOpenDropDown}
-                        handleLogout={handleLogout}
+                        handleLogout={logout}
                     />
                 ):(
                     <DesktopNav 
                         isOpen={isOpenMenu} 
-                        handleLogout={handleLogout} 
+                        handleLogout={logout} 
                         setIsOpenMenu={setIsOpenMenu}
                     /> 
                 )
