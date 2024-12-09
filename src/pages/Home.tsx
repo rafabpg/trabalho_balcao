@@ -4,6 +4,7 @@ import SearchAndFilterBar from '@/components/Organisms/SearchAndFilterBar';
 import AdCard from '@/components/Organisms/AdCard';
 import Pagination from '@/components/Molecules/Pagination';
 import { useQuery } from '@tanstack/react-query';
+import api from '@/services/api';
 
 interface Ad {
   id: string;
@@ -29,15 +30,10 @@ interface Filters {
   dateOrder: string;
 }
 
-const fetchAds = async (page: number): Promise<{ ads: Ad[]; total: number }> => {
-  const response = await fetch(`/api/ads?page=${page}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'ngrok-skip-browser-warning': '69420',
-    },
-  });
-  if (!response.ok) throw new Error('Failed to fetch ads');
-  return response.json();
+const fetchAds = async (page: number): Promise<{ itens: Ad[]; page_size: number, page: number }> => {
+  const response = await api.get('/advertisements');
+  if (response.status !== 200) throw new Error('Failed to fetch ads');
+  return response.data;
 };
 
 const Home: React.FC = () => {
@@ -58,7 +54,7 @@ const Home: React.FC = () => {
     }
   );
 
-  const ads = data?.ads || [];
+  const ads = data?.itens || [];
   const totalPages = Math.ceil((data?.total || 0) / adsPerPage);
 
   if (isLoading) return <p>Carregando anúncios...</p>;
@@ -76,7 +72,7 @@ const Home: React.FC = () => {
                 key={ad.id}
                 userName={ad.user_id}
                 userImage={''}
-                rating={5}
+                rating={4.6}
                 adTitle={ad.title}
                 adDate={ad.created_at}
                 adImage={''}

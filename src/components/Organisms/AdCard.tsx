@@ -53,7 +53,7 @@ const AdCard: React.FC<AdCardProps> = ({
       </div>
 
       <div className="p-4 bg-blue-950 text-white rounded-b-lg flex justify-between items-center">
-        <span className="text-lg font-bold">{price}</span>
+        <span className="text-lg font-bold">R$ {price}</span>
         <a href="anuncio/1924a7d7-34cd-4435-bd8e-8c6ffd5d5bfc" className="px-4 py-1 bg-blue-950 text-white border border-white rounded-lg hover:bg-white hover:text-blue-950 transition-colors">
           Ver Mais
         </a>
