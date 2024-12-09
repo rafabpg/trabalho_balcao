@@ -10,7 +10,7 @@ interface AdCardProps {
   adImage: string;
   location: string;
   category: string;
-  price: string;
+  price: number;
 }
 
 const AdCard: React.FC<AdCardProps> = ({
