@@ -79,20 +79,7 @@ const Home: React.FC = () => {
       <div className="p-4">
         <div className="flex justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl">
-            {ads.map((ad: Ad) => (
-              <AdCard
-                key={ad.id}
-                userName={ad.user?.full_name}
-                userImage={''}
-                rating={ad.user?.rating}
-                adTitle={ad.title}
-                adDate={ad.created_at}
-                adImage={ad.images_urls?.length > 0 ? ad.images_urls[0] : ''}
-                location={ad.campus}
-                category={ad.category}
-                price={ad.price}
-              />
-            ))}
+            {ads.map((ad: Ad) => <AdCard ad={ad}/> )}
           </div>
         </div>
 
