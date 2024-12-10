@@ -6,7 +6,7 @@ import Pagination from '@/components/Molecules/Pagination';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/services/api';
 
-interface Ad {
+export interface Ad {
   id: string;
   title: string;
   description: string;
@@ -19,8 +19,12 @@ interface Ad {
   email_contact: string;
   created_at: string;
   updated_at: string;
-  user_id: string;
   images_urls: string[];
+  user: {
+    id: string;
+    full_name: string;
+    rating: number;
+  }
 }
 
 interface Filters {
@@ -77,9 +81,9 @@ const Home: React.FC = () => {
             {ads.map((ad: Ad) => (
               <AdCard
                 key={ad.id}
-                userName={ad.user_id}
+                userName={ad.user?.full_name}
                 userImage={''}
-                rating={4.6}
+                rating={ad.user?.rating}
                 adTitle={ad.title}
                 adDate={ad.created_at}
                 adImage={ad.images_urls?.length > 0 ? ad.images_urls[0] : ''}

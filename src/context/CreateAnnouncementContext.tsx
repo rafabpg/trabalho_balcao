@@ -5,7 +5,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import usePostData from "@/hooks/usePostData";
 import { AxiosHttpClientAdapter } from "@/services/axiosAdapter";
-import { getCookieValue } from "@/utils/getCookiesAux";
 import { useAuth } from "@/hooks/useAuth";
 
 type CreateAnnouncementData = z.infer<typeof createAnnouncementSchema>;
