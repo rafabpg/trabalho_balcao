@@ -5,6 +5,7 @@ import AdCard from '@/components/Organisms/AdCard';
 import Pagination from '@/components/Molecules/Pagination';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/services/api';
+import LoadingSpinner from '@/components/Atoms/LoadingSpinner';
 
 export interface Ad {
   id: string;
@@ -68,7 +69,7 @@ const Home: React.FC = () => {
     refetch();
   }, [filters, currentPage, refetch]);
 
-  if (isLoading) return <p>Carregando anúncios...</p>;
+  if (isLoading) return <LoadingSpinner/>;
   if (isError) return <p>Erro ao carregar anúncios: {(error as Error).message}</p>;
 
   return (

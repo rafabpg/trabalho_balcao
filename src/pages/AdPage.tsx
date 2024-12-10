@@ -8,16 +8,26 @@ import Description from "@/components/Molecules/Description";
 import Button from "@/components/Atoms/Button";
 import Star from "@/assets/icons/Star.png";
 import { Ad } from "./Home";
+import LoadingSpinner from "@/components/Atoms/LoadingSpinner";
 
 const fetchAd = async (adId: string): Promise<Ad> => {
   const response = await api.get(`/advertisements/${adId}`);
-  if (response.status !== 200) throw new Error("Failed to fetch ad");
   return response.data;
+};
+
+const fetchImages = async (imageUrls: string[]): Promise<string[]> => {
+  return Promise.all(
+    imageUrls.map(async (url) => {
+      const response = await api.get(url, { responseType: 'blob' });
+      return URL.createObjectURL(response.data);
+    })
+  );
 };
 
 const AdPage: React.FC = () => {
   const { adId } = useParams<{ adId: string }>();
   const [isProposalModalOpen, setIsProposalModalOpen] = useState(false);
+  const [images, setImages] = useState<string[] | null>(null);
 
   const { data: ad, isLoading, isError } = useQuery<Ad>({
     queryKey: ["advertisement", adId],
@@ -25,10 +35,16 @@ const AdPage: React.FC = () => {
     enabled: !!adId,
   });
 
-  if (isLoading) return <p>Carregando anúncio...</p>;
-  if (isError || !ad) return <p>Erro ao carregar anúncio.</p>;
+  useEffect(() => {
+    if (ad && ad.images_urls) {
+      fetchImages(ad.images_urls.slice(0, 3))
+        .then(setImages)
+        .catch((error) => console.error("Erro ao carregar imagens:", error));
+    }
+  }, [ad]);
 
-  const images = ad.images_urls.slice(0, 3);
+  if (isLoading) return <LoadingSpinner/>;
+  if (isError || !ad) return <p>Erro ao carregar anúncio.</p>;
 
   return (
     <div>
@@ -36,14 +52,16 @@ const AdPage: React.FC = () => {
         <div className="flex justify-center">
           <div className="grid grid-rows-2 grid-cols-1 h-screen">
             <div className="grid grid-cols-3 gap-2">
-              {images.map((img, index) => (
-                <img
-                  key={index}
-                  src={img}
-                  alt={`Imagem ${index + 1}`}
-                  className="block w-full border border-secondary rounded h-full object-cover"
-                />
-              ))}
+              {images ? (
+                images.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt={`Imagem ${index + 1}`}
+                    className="w-full border border-secondary rounded h-full object-cover"
+                  />
+                ))
+              ) : <LoadingSpinner/>}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
