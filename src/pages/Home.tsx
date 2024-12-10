@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import WelcomeBanner from '@/components/Organisms/WelcomeBanner';
 import SearchAndFilterBar from '@/components/Organisms/SearchAndFilterBar';
 import AdCard from '@/components/Organisms/AdCard';
@@ -20,6 +20,7 @@ interface Ad {
   created_at: string;
   updated_at: string;
   user_id: string;
+  images_urls: string[];
 }
 
 interface Filters {
@@ -30,8 +31,14 @@ interface Filters {
   dateOrder: string;
 }
 
-const fetchAds = async (page: number): Promise<{ itens: Ad[]; page_size: number, page: number }> => {
-  const response = await api.get('/advertisements');
+const fetchAds = async (page: number, filters: Filters): Promise<{ itens: Ad[]; page_size: number; total_count: number; page: number }> => {
+  const params = new URLSearchParams({
+    page: page.toString(),
+    category: filters.category,
+    campus: filters.location,
+  }).toString();
+
+  const response = await api.get(`/advertisements?${params}`);
   if (response.status !== 200) throw new Error('Failed to fetch ads');
   return response.data;
 };
@@ -45,17 +52,17 @@ const Home: React.FC = () => {
     dateOrder: '',
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const adsPerPage = 6;
-
-  const { data, isLoading, isError, error } = useQuery(
-    {
-      queryKey: ['advertisements'],
-      queryFn: () => fetchAds(currentPage),
-    }
-  );
-
+  
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ['advertisements'],
+    queryFn: () => fetchAds(currentPage, filters),
+  });
   const ads = data?.itens || [];
-  const totalPages = Math.ceil((data?.total || 0) / adsPerPage);
+  const totalPages = 100
+  
+  useEffect(() => {
+    refetch();
+  }, [filters, currentPage, refetch]);
 
   if (isLoading) return <p>Carregando anúncios...</p>;
   if (isError) return <p>Erro ao carregar anúncios: {(error as Error).message}</p>;
@@ -75,7 +82,7 @@ const Home: React.FC = () => {
                 rating={4.6}
                 adTitle={ad.title}
                 adDate={ad.created_at}
-                adImage={''}
+                adImage={ad.images_urls?.length > 0 ? ad.images_urls[0] : ''}
                 location={ad.campus}
                 category={ad.category}
                 price={ad.price}
