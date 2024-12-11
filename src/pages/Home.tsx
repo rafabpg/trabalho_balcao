@@ -36,7 +36,7 @@ interface Filters {
   dateOrder: string;
 }
 
-const fetchAds = async (page: number, filters: Filters): Promise<{ itens: Ad[]; page_size: number; total_count: number; page: number }> => {
+const fetchAds = async (page: number, filters: Filters): Promise<{ itens: Ad[]; page_size: number; page_count: number; page: number }> => {
   const params = new URLSearchParams({
     page: page.toString(),
     category: filters.category,
@@ -57,20 +57,20 @@ const Home: React.FC = () => {
     dateOrder: '',
   });
   const [currentPage, setCurrentPage] = useState(1);
-  
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['advertisements'],
     queryFn: () => fetchAds(currentPage, filters),
   });
-  const ads = data?.itens || [];
-  const totalPages = 100
   
   useEffect(() => {
     refetch();
   }, [filters, currentPage, refetch]);
-
+  
   if (isLoading) return <LoadingSpinner/>;
-  if (isError) return <p>Erro ao carregar anúncios: {(error as Error).message}</p>;
+  if (isError || !data) return <p>Erro ao carregar anúncios: {(error as Error).message}</p>;
+  
+  const ads = data.itens;
+  const totalPages = data.page_count
 
   return (
     <div>
