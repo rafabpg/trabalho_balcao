@@ -23,7 +23,7 @@ const DesktopUserWindow = ({ isOpen, handleLogout }:DesktopUserWindowProps) => {
                         <LinkItem to="/meu-perfil" children="Meu Perfil" icon={<img src={MeuPerfilIcon} alt="Icone de Meu Perfil" />} />
                     </li>
                     <li>
-                        <LinkItem to="/meus-chats" children="Meus Chats" icon={<IoChatboxOutline color="#FFFFFF" size={21} />} />
+                        <LinkItem to="/meu-perfil/chats" children="Meus Chats" icon={<IoChatboxOutline color="#FFFFFF" size={21} />} />
                     </li>
                     <li className="pt-2">
                         <LinkItem to="/login" children="Logout" onClick={handleLogout} icon={<FiLogOut color="#FFFFFF" size={22} />} />

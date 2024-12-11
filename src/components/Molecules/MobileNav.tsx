@@ -59,7 +59,7 @@ const MobileNav = ({
 
                     {isOpenDropDown && (
                       <ul className="w-full bg-primary-default border-t border-opacity-20 border-light py-2 flex flex-col gap-3 items-start">
-                        <Link to="/perfil" className="flex gap-3 items-center px-4 hover:bg-opacity-10 hover:bg-primary-light transition-colors w-full py-2">
+                        <Link to="/meu-perfil" className="flex gap-3 items-center px-4 hover:bg-opacity-10 hover:bg-primary-light transition-colors w-full py-2">
                           <img src={MeuPerfilIcon} alt="Ícone de Meu Perfil" className="w-6 h-6" />
                           <span>Meu Perfil</span>
                         </Link>
