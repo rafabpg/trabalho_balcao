@@ -8,7 +8,7 @@ export interface User {
   id: string;
   cpf: string;
   image: string | null;
-  fullName: string;
+  full_name: string;
   role: string;
   rating: number;
 }
@@ -46,6 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         api.defaults.headers['uid'] = uid;
 
         const response = await api.get('/auth/validate_token');
+        console.log("response.data.data",response.data.data)
         setUser(response.data.data);
       } catch (error) {
         navigate('/login');
