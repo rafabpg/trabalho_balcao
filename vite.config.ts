@@ -1,11 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tsconfigPaths from 'vite-tsconfig-paths';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import babel from 'vite-plugin-babel';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(),
-    tsconfigPaths()
-  ]
-})
-
+  plugins: [
+    react(),
+    babel({
+      babelConfig: {
+        presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
+      },
+    }),
+  ],
+});
