@@ -23,8 +23,8 @@ const DesktopNav = ({
       <nav className="">
         <ul className="flex flex-row gap-8 items-center text-light font-semibold hover:*:-translate-y-1 [&>*]:transition-all [&>*]:ease-in-out text-base">
           <NavLinkItem link="/" children="Anúncios" />
-          <NavLinkItem link="/meus-anúncios" children="Meus Anúncios" />
-          <NavLinkItem link="/criar-anúncio" children="Criar Anúncio" />
+          <NavLinkItem link="/meus-anuncios" children="Meus Anúncios" />
+          <NavLinkItem link="/criar-anuncios" children="Criar Anúncio" />
           <li>
             <i
               className="cursor-pointer"
