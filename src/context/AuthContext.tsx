@@ -45,6 +45,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         api.defaults.headers['client'] = client;
         api.defaults.headers['uid'] = uid;
 
+        console.log("sasd",api.defaults.headers);
         const response = await api.get('/auth/validate_token');
         setUser(response.data.data);
       } catch (error) {
