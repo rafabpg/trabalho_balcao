@@ -3,7 +3,7 @@ import React, { forwardRef } from "react"
 import { twMerge } from "tailwind-merge"
 
 interface InputProps {
-    type: 'text' | 'number';
+    type: 'text' | 'number' | 'password' | 'email';
     placeholder?: string;
     mask?: MaskProps
     prefix?: string
