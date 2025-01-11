@@ -6,16 +6,19 @@ import user_default from "@/assets/images/user_default_profile.png";
 import { useAuth } from "@/hooks/useAuth";
 import usePutData from "@/hooks/usePutData";
 import { AxiosHttpClientAdapter } from "@/services/axiosAdapter";
+import { useNotification } from "@/hooks/useNotification";
 
 const ProfileEdition = () => {
   const { currentUser, auth } = useAuth();
-  const { mutateAsync, isSuccess } = usePutData();
+  const { mutateAsync } = usePutData();
 
   const [name, setName] = useState<string>(currentUser?.full_name ?? "");
   const [isNameChanged, setIsNameChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isImageChanged, setIsImageChanged] = useState(false);
   const [selectedImageName, setSelectedImageName] = useState<string>("");
+
+  const {showError,showSuccess} = useNotification()
 
   useEffect(() => {
     if (currentUser) {
@@ -60,17 +63,13 @@ const ProfileEdition = () => {
         headers: auth,
       });
 
-      alert("Perfil atualizado com sucesso!");
+      showSuccess("Perfil atualizado com sucesso!");
       window.location.reload();
     } catch (error: any) {
-      alert(
-        `Erro ao atualizar perfil: ${error.errors
-          .map((err: any) => err.message)
-          .join(", ")}`
-      );
+        showError("Erro ao atualizar perfil, verifique os campos e tente novamente")
     }
     setIsNameChanged(false);
-    setIsImageChanged(false);
+    // setIsImageChanged(false);
   };
 
   const handleCancel = () => {
