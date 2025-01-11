@@ -11,9 +11,10 @@ const UserImage = ({ className, src, ...props }: UserImageProps) => {
       src={src}
       alt="User Image"
       className={twMerge(
-        "rounded-full object-cover border-black border-2",
+        "rounded-full object-cover border-black border-2 ",
         className
       )}
+      {...props}
     />
   );
 };

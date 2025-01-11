@@ -14,6 +14,7 @@ interface MobileNavProps {
     setIsOpenDropDown: (open: boolean) => void
     isOpenDropDown: boolean
     handleLogout: () => void
+    fullName?: string;
 }
 
 const MobileNav = ({
@@ -21,7 +22,8 @@ const MobileNav = ({
         setIsOpenMenu,
         setIsOpenDropDown, 
         isOpenDropDown, 
-        handleLogout
+        handleLogout,
+        fullName
     }:MobileNavProps) => {
 
   return (
@@ -51,7 +53,7 @@ const MobileNav = ({
                       className="flex items-center cursor-pointer gap-2 px-4 py-2"
                     >
                       <VscAccount color="#FFFFFF" size={26} />
-                      <span>Jão Pernalonga</span>
+                      <span>{fullName}</span>
                       <i className={`transition-transform ${isOpenDropDown ? 'rotate-180' : 'rotate-0'}`}>
                         <RiArrowDropDownLine color="#FFFFFF" size={32} />
                       </i>

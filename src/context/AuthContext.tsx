@@ -8,7 +8,7 @@ export interface User {
   id: string;
   cpf: string;
   image: string | null;
-  fullName: string;
+  full_name: string;
   role: string;
   rating: number;
 }
