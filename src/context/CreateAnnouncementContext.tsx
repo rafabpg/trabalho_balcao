@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import usePostData from "@/hooks/usePostData";
 import { AxiosHttpClientAdapter } from "@/services/axiosAdapter";
 import { useAuth } from "@/hooks/useAuth";
+import { useNotification } from "@/hooks/useNotification";
 
 type CreateAnnouncementData = z.infer<typeof createAnnouncementSchema>;
 
@@ -48,7 +49,7 @@ export const CreateAnnouncementProvider = ({
 
   const [stepState, setStepState] = useState<number>(1);
   const [isStepValid, setIsStepValid] = useState<boolean>(false);
-
+  const { showError, showSuccess } = useNotification();
   const requiredFields: Array<keyof CreateAnnouncementData> =
     stepState === 1
       ? ["title", "description", "category", "item_type", "campus"]
@@ -74,17 +75,14 @@ export const CreateAnnouncementProvider = ({
         httpClient: new AxiosHttpClientAdapter(),
         data: validatedData,
         url: "/advertisements",
-        headers: auth
+        headers: auth,
       });
-      alert("Anuncio criado com sucesso!");
+      showSuccess("Anúncio criado com sucesso!");
       reset();
       setStepState(1);
     } catch (error: any) {
-      alert(
-        `Erro ao criar anúncio: ${error.errors
-          .map((err: any) => err.message)
-          .join(", ")
-        }`
+      showError(
+        `Erro ao criar anúncio, verifique os campos e tente novamente`
       );
     }
   };
