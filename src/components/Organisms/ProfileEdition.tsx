@@ -47,13 +47,11 @@ const ProfileEdition = () => {
     });
   };
   const handleSave = async () => {
-    console.log(currentUser);
     // image: selectedImage ? selectedImage.replace(/^data:image\/[a-z]+;base64,/, "") : null,
     const data = {
       ...currentUser,
       full_name: name,
     };
-    console.log(data);
     try {
       await mutateAsync({
         httpClient: new AxiosHttpClientAdapter(),
@@ -61,10 +59,9 @@ const ProfileEdition = () => {
         url: `/auth`,
         headers: auth,
       });
-      if (isSuccess) {
-        alert("Perfil atualizado com sucesso!");
-        window.location.reload();
-      }
+
+      alert("Perfil atualizado com sucesso!");
+      window.location.reload();
     } catch (error: any) {
       alert(
         `Erro ao atualizar perfil: ${error.errors
@@ -122,7 +119,7 @@ const ProfileEdition = () => {
               </span>
             )}
           </div>*/}
-        </div> 
+        </div>
       </div>
       <div className="py-8">
         <FormInput
