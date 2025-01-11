@@ -28,16 +28,16 @@ const ProfileEdition = () => {
     setIsNameChanged(true);
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    if (file) {
-      convertToBase64(file).then((base64Image) => {
-        setSelectedImage(base64Image);
-        setSelectedImageName(file.name);
-        setIsImageChanged(true);
-      });
-    }
-  };
+  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0] || null;
+  //   if (file) {
+  //     convertToBase64(file).then((base64Image) => {
+  //       setSelectedImage(base64Image);
+  //       setSelectedImageName(file.name);
+  //       setIsImageChanged(true);
+  //     });
+  //   }
+  // };
   const convertToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -48,10 +48,10 @@ const ProfileEdition = () => {
   };
   const handleSave = async () => {
     console.log(currentUser);
+    // image: selectedImage ? selectedImage.replace(/^data:image\/[a-z]+;base64,/, "") : null,
     const data = {
       ...currentUser,
       full_name: name,
-      image: selectedImage ? selectedImage.replace(/^data:image\/[a-z]+;base64,/, "") : null,
     };
     console.log(data);
     try {
@@ -97,7 +97,7 @@ const ProfileEdition = () => {
           className="w-16 h-16 md:24 md:h-24 lg:w-36 lg:h-36"
         />
         <div className="flex flex-col gap-3">
-          <span className="text-base md:text-xl text-primary-default">
+          {/* <span className="text-base md:text-xl text-primary-default">
             Escolha uma outra imagem caso queira trocar a atual
           </span>
           <div className="flex items-center rounded bg-[rgba(0,79,159,0.5)]">
@@ -121,8 +121,8 @@ const ProfileEdition = () => {
                 Nenhum Arquivo Escolhido
               </span>
             )}
-          </div>
-        </div>
+          </div>*/}
+        </div> 
       </div>
       <div className="py-8">
         <FormInput
