@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react"
+import  { forwardRef } from "react"
 import Label from './Label';
 
 
@@ -10,11 +10,11 @@ interface SelectProps {
     errorMessage?: string
 }
 
-const SelectField = forwardRef( ({  options,
+const SelectField = forwardRef<HTMLSelectElement, SelectProps>(({  options,
     label,
     placeholder,
     className = '',errorMessage,...props
-  }:SelectProps,ref) => {
+  }, ref) => {
   return (
     <div className={`flex flex-col ${className} gap-3`}>
     {label && <Label children={label}/>}

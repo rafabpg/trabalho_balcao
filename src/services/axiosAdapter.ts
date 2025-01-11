@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import  { AxiosError } from "axios";
 import  api  from "./api";
 
 
