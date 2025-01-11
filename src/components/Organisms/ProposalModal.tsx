@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import X from "@/assets/icons/X.svg";
+import api from '@/services/api';
 
 interface ProposalModalProps {
   onClose: () => void;
+  adId: string;
   sellerName: string;
   productPrice: number;
 }
 
-const ProposalModal: React.FC<ProposalModalProps> = ({ onClose, sellerName, productPrice }) => {
+const ProposalModal: React.FC<ProposalModalProps> = ({ onClose, adId, sellerName, productPrice }) => {
+  const [message, setMessage] = useState("");
+
+  const startNegotiation = async () => {
+    try {
+      await api.post(`advertisements/${adId}/negotiations`, {
+        proposal: message,
+      });
+      onClose();
+    } catch (error) {
+      console.error("Erro ao enviar proposta:", error);
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-6 rounded-lg w-96 relative">
@@ -32,13 +47,12 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ onClose, sellerName, prod
           <textarea
             className="border border-gray-300 rounded-md w-full p-2 mt-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Escreva sua proposta aqui..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
 
           <button
-            onClick={() => {
-              console.log("Proposta enviada");
-              onClose();
-            }}
+            onClick={startNegotiation}
             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           >
             Enviar Proposta

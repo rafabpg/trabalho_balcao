@@ -25,13 +25,14 @@ const ProposalRequest: React.FC<ProposalRequestProps> = ({ userName, message, on
           <p className="text-gray-600 text-sm mb-4">
             Ao aceitar esta proposta, você estará sob um contrato de negociação e aceitará os termos de uso da plataforma. Mesmo que a negociação não seja concluída, ambas as partes poderão se avaliar no final.
           </p>
+          <p className="text-gray-600 font-bold text-sm mb-2">Mensagem do Usuário:</p>
           <textarea
             readOnly
             className="border border-gray-300 rounded-md w-full p-3 text-sm text-gray-700 focus:outline-none mb-4"
             value={message}
           />
 
-          <div className="flex justify-around mt-4">
+          <div className="flex justify-center gap-4 mt-4">
             <button
               onClick={onReject}
               className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"

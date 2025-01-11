@@ -107,6 +107,7 @@ const AdPage: React.FC = () => {
       {isProposalModalOpen && (
         <ProposalModal
           onClose={() => setIsProposalModalOpen(false)}
+          adId={ad.id}
           sellerName={ad.user.full_name}
           productPrice={ad.price}
         />
