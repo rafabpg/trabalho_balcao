@@ -5,7 +5,7 @@ import React, { forwardRef } from "react"
 import { MaskProps } from '@react-input/mask';
 
 interface FormInputProps {
-    type: 'text' | 'number';
+    type: 'text' | 'number' | 'password' | 'email';
     placeholder?: string;
     label?: string; 
     mask?:MaskProps

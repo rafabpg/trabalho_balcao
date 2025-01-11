@@ -1,86 +1,57 @@
 import React, { useState, MouseEvent } from "react";
 import Button from "@/components/Atoms/Button";
 import { useAuth } from "@/hooks/useAuth";
+import FormInput from "../Molecules/FormInput";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { loginSchema, LoginSchemaType } from "@/schemas/loginSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const LoginForm: React.FC = () => {
-  const [CPF, setCPF] = useState("");
-  const [password, setPassword] = useState("");
-  const [CPFError, setCPFError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
   const { login } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginSchemaType>({ resolver: zodResolver(loginSchema) });
 
-  const onButtonClick = async (event: MouseEvent) => {
-    event.preventDefault();
-
-    if (CPF === "") {
-      setCPFError("Insira seu CPF");
-      return;
-    } else if (
-      !(
-        /^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/.test(CPF) ||
-        /^[0-9]{11}$/.test(CPF)
-      )
-    ) {
-      setCPFError("CPF inválido");
-      return;
-    } else {
-      setCPFError("");
-    }
-
-    if (password === "") {
-      setPasswordError("Insira sua senha");
-      return;
-    } else {
-      setPasswordError("");
-    }
-
+  const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
     try {
-      await login(CPF, password);
-      window.location.href = "/";
+      await login(data.cpf, data.password);
     } catch (error) {
-      setPasswordError("Login ou senha inválidos");
+      alert("Login ou senha inválidos");
     }
   };
 
   return (
-    <div>
-      <div className="grid grid-rows-4 grid-cols-1 justify-center items-center gap-y-2">
-        <label className="ml-36 text-primary-darker text-center text-2xl font-sans font-bold">
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="text-primary-darker text-center text-2xl font-bold">
           Faça seu login
-        </label>
-
-        <div className="grid w-40 ml-40 gap-y-2">
-          <label className="text-primary-darker text-left text-xl">CPF</label>
-          <input
-            value={CPF}
-            placeholder="ex:123.456.789-13"
-            onChange={(ev) => setCPF(ev.target.value)}
+        </h1>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex pt-8 flex-col  gap-4 justify-center items-center"
+        >
+          <FormInput
+            className="sm:w-[150px] md:w-[200px] lg:w-[360px]"
             type="text"
-            id="cpf"
-            className="border border-primary-darker rounded-md w-80"
-          />
-          <label className="text-red-600 text-xs">{CPFError}</label>
-        </div>
-
-        <div className="grid w-40 ml-40 gap-y-2">
-          <label className="text-primary-darker text-left text-xl">Senha</label>
-          <input
-            value={password}
-            onChange={(ev) => setPassword(ev.target.value)}
+            placeholder="ex:123.456.789-13"
+            {...register("cpf")}
+            label="CPF"
+            labelClassName="text-primary-darker font-normal text-xl"
+            errorMessage={errors.cpf?.message}
+            />
+          <FormInput
             type="password"
-            id="senha"
-            className="border border-primary-darker rounded-md w-80"
+            placeholder="Senha"
+            {...register("password")}
+            label="Senha"
+            className="sm:w-[150px] md:w-[200px] lg:w-[360px]"
+            labelClassName="text-primary-darker font-normal text-xl"
+            errorMessage={errors.password?.message}
           />
-          <label className="text-red-600 text-xs">{passwordError}</label>
-        </div>
-
-        <Button
-          className="w-56 h-8 ml-56 text-center"
-          text="Entrar"
-          onClick={onButtonClick}
-        />
+          <Button className="px-20 py-2 mt-8" text="Entrar" />
+        </form>
       </div>
-    </div>
   );
 };
 

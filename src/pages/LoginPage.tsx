@@ -1,17 +1,19 @@
 import LoginForm from "@/components/Organisms/LoginForm";
 import loginsidebanner from "@/assets/images/loginsidebanner.png";
-import Banner from "@/assets/images/banneruff.jpg"
+import Banner from "@/assets/images/banneruff.jpg";
 
 const LoginPage = () => {
-
   return (
-    <div className="px-96 flex mt-20">
-        <img src={loginsidebanner} className=" h-auto w-full"></img>
-        <span>
-          <img src={Banner}></img>
-          <LoginForm />
-        </span>
+    <section className="relative flex">
+      <img
+        src={loginsidebanner}
+        alt="Login Banner"
+      />
+      <div className="flex flex-col items-center justify-center">
+        <img src={Banner} />
+        <LoginForm />
       </div>
+    </section>
   );
 };
-export default LoginPage
+export default LoginPage;
