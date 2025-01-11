@@ -10,6 +10,7 @@ import ProfileTemplate from "@/template/ProfileTemplate";
 import ProfileDisplay from "@/components/Organisms/ProfileDisplay";
 import ProfileEdition from "@/components/Organisms/ProfileEdition";
 import ProfileChats from "@/components/Organisms/ProfileChats";
+import ProfileProposals from "@/components/Organisms/ProfileProposals";
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AppRoutes = () => {
             <Route path="meu-perfil" element={<ProfileTemplate />}>
               <Route index element={<ProfileDisplay />} />
               <Route path="editar" element={<ProfileEdition />} />
+              <Route path="propostas" element={<ProfileProposals />} />
               <Route path="chats" element={<ProfileChats />} />
             </Route>
             <Route index element={<Home />} />

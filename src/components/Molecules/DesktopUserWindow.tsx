@@ -1,7 +1,7 @@
 import { FiLogOut } from "react-icons/fi";
 import { VscAccount } from "react-icons/vsc";
 import MeuPerfilIcon from "@/assets/icons/icon_meu_perfil.svg";
-import { IoChatboxOutline } from "react-icons/io5";
+import { IoChatboxOutline, IoMail, IoMailOutline } from "react-icons/io5";
 import LinkItem from "../Atoms/LinkItem";
 import { useEffect, useRef } from "react";
 
@@ -54,6 +54,14 @@ const DesktopUserWindow = ({
               to="/meu-perfil"
               children="Meu Perfil"
               icon={<img src={MeuPerfilIcon} alt="Icone de Meu Perfil" />}
+              onClick={() => setIsOpen(false)}
+            />
+          </li>
+          <li>
+            <LinkItem
+              to="/meu-perfil/propostas"
+              children="Novas Propostas"
+              icon={<IoMailOutline color="#FFFFFF" size={21} />}
               onClick={() => setIsOpen(false)}
             />
           </li>
