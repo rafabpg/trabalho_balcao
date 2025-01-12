@@ -6,27 +6,7 @@ import Pagination from '@/components/Molecules/Pagination';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/services/api';
 import LoadingSpinner from '@/components/Atoms/LoadingSpinner';
-
-export interface Ad {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  status: string;
-  kind: string;
-  category: string;
-  campus: string;
-  phone_contact: string;
-  email_contact: string;
-  created_at: string;
-  updated_at: string;
-  images_urls: string[];
-  user: {
-    id: string;
-    full_name: string;
-    rating: number;
-  }
-}
+import { Ad } from '@/shared/announcement';
 
 interface Filters {
   searchTerm: string;
