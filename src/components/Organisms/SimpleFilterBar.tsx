@@ -44,7 +44,7 @@ const SimpleFilterBar: React.FC<SimpleFilterBarProps> = ({ onApplyFilters }) => 
   return (
     <div className="flex flex-col gap-4 p-4">
       <div className="flex items-center justify-center gap-4">
-        <div className="relative">
+        {/* <div className="relative">
           <button
             className="bg-blue-950 text-white px-4 py-2 rounded-full flex items-center justify-between gap-2 w-48"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -62,7 +62,7 @@ const SimpleFilterBar: React.FC<SimpleFilterBarProps> = ({ onApplyFilters }) => 
               </li>
             </ul>
           )}
-        </div>
+        </div> */}
 
         <div className="flex items-center bg-blue-950 rounded-full px-4 py-2 w-full md:max-w-lg">
           <FiSearch className="text-white mr-2" size={20} />
