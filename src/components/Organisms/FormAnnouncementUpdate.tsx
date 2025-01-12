@@ -29,25 +29,12 @@ const FormAnnouncementUpdate = ({
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<UpdateAnnouncementSchema>({
     resolver: zodResolver(updateAnnouncementSchema),
     defaultValues: {
       title: announcementData.title,
       description: announcementData.description,
-      category:
-        categoryMap[
-          CategoryEnum[
-            announcementData.category.toUpperCase() as keyof typeof CategoryEnum
-          ]
-        ],
-      campus:
-        campusMap[
-          LocalizationEnum[
-            announcementData.campus.toUpperCase() as keyof typeof LocalizationEnum
-          ]
-        ],
       price: announcementData.price,
       email_contact: announcementData.email_contact,
       phone_contact: announcementData.phone_contact,
@@ -65,7 +52,11 @@ const FormAnnouncementUpdate = ({
   );
 
   const onSubmit = (data: UpdateAnnouncementSchema) => {
-    handleSave(data);
+    handleSave({
+      ...data,
+      category: categoryMap[category as keyof typeof categoryMap],
+      campus: campusMap[campus as keyof typeof campusMap],
+    });
   };
 
   return (
@@ -93,53 +84,33 @@ const FormAnnouncementUpdate = ({
           label: value,
           value,
         }))}
- labelClassName="text-light text-xl font-bold"
+        labelClassName="text-light text-xl font-bold"
         value={category}
         onChange={(e) => {
-          console.log(
-            "e.target.value",
-            categoryMap[e.target.value as keyof typeof categoryMap]
-          );
           setCategory(e.target.value);
-          setValue(
-            "category",
-            // @ts-ignore
-            e.target.value
-          );
         }}
         placeholder="Altere a categoria"
         label="Categoria"
         className="self-start max-w-[368px] lg:w-[368px]"
-        errorMessage={errors.category?.message}
       />
       <SelectField
         options={Object.values(LocalizationEnum).map((value) => ({
           label: value,
           value,
         }))}
-         labelClassName="text-light text-xl font-bold"
+        labelClassName="text-light text-xl font-bold"
         value={campus}
         onChange={(e) => {
-          console.log(
-            "e.target.value campus",
-            campusMap[e.target.value as keyof typeof campusMap]
-          );
+
           setCampus(e.target.value);
-          setValue(
-            "campus",
-            // @ts-ignore
-            e.target.value
-          );
         }}
         placeholder="Altere o Campus"
         label="Campus"
         className="self-start max-w-[368px] lg:w-[368px]"
-        errorMessage={errors.campus?.message}
       />
       <FormInput
         type="number"
         label="Preço"
-        
         {...register("price", { valueAsNumber: true })}
         errorMessage={errors.price?.message}
         labelClassName="text-light text-xl font-bold"

@@ -21,8 +21,7 @@ export const campusMap = {
 export const updateAnnouncementSchema = z.object({
   title: z.string().min(1, { message: "Campo obrigatório" }),
   description: z.string().min(1, { message: "Campo obrigatório" }),
-  category: CategoryEnumSchema.transform((val) => categoryMap[val]),
-  campus: LocalizationEnumSchema.transform((val) => campusMap[val]),
+
   price: z
     .number()
     .min(0.0001, { message: "Preço deve ser maior que 0" })
