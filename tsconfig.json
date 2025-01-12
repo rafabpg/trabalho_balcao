@@ -5,16 +5,17 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "jsx": "react", 
+    "jsx": "react",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "types": ["jest", "@testing-library/jest-dom"], 
-    "baseUrl": "./", 
-    "paths": { 
-      "@/*": ["src/*"] 
+    "types": ["jest", "@testing-library/jest-dom"],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
     }
-  }
+  },
+  "include": ["src", "**/*.test.ts", "**/*.test.tsx", "jest.setup.ts"]
 }
