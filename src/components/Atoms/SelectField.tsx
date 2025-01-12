@@ -8,6 +8,7 @@ interface SelectProps {
   placeholder?: string;
   className?: string;
   errorMessage?: string;
+  labelClassName?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
@@ -20,6 +21,7 @@ const SelectField = forwardRef<HTMLSelectElement, SelectProps>(
       placeholder,
       className = "",
       errorMessage,
+      labelClassName = "",
       value,
       onChange,
       ...props
@@ -28,7 +30,7 @@ const SelectField = forwardRef<HTMLSelectElement, SelectProps>(
   ) => {
     return (
       <div className={`flex flex-col ${className} gap-3`}>
-        {label && <Label>{label}</Label>}
+        {label && <Label className={labelClassName}>{label}</Label>}
         <select
           ref={ref}
           value={value}

@@ -26,10 +26,11 @@ const CreateAnnouncementStep1 = () => {
           {...register("title")}
           error={errors.title?.message}
           label="Adicione seu Título"
+           labelClassName="text-light text-xl font-bold"
           errorMessage={errors.title?.message}
         />
         <div className="flex flex-col gap-3">
-          <Label children="Adicione a descrição do seu anúncio" />
+          <Label children="Adicione a descrição do seu anúncio"  className="text-light text-xl font-bold"/>
           <textarea
             className="min-h-[100px] h-[152px]  max-h-[400px] max-w-[678px] sm:w-[500px] md:w-[600px] lg:w-[678px] rounded-md py-2 px-3 text-base outline-none focus:ring-2 focus:ring-primary placeholder-lighter-secondary"
             placeholder="Adicione  descrição do seu anúncio"
@@ -43,6 +44,7 @@ const CreateAnnouncementStep1 = () => {
           type="number"
           placeholder="123,00"
           {...register("price")}
+           labelClassName="text-light text-xl font-bold"
           error={errors.price?.message}
           label="Adicione seu Preço"
           errorMessage={errors.price?.message}
@@ -53,6 +55,7 @@ const CreateAnnouncementStep1 = () => {
             label: value,
             value,
           }))}
+           labelClassName="text-light text-xl font-bold"
           placeholder="Selecione uma categoria"
           label="Quais dessas categorias seu anúncio se encaixa?"
           className="self-start max-w-[368px] lg:w-[368px]"
@@ -64,6 +67,7 @@ const CreateAnnouncementStep1 = () => {
             label: value,
             value,
           }))}
+           labelClassName="text-light text-xl font-bold"
           placeholder="Selecione um tipo de item"
           label="Por que você esta criando esse anúncio?"
           className="self-start max-w-[368px]  lg:w-[368px]"
@@ -75,6 +79,7 @@ const CreateAnnouncementStep1 = () => {
             label: value,
             value,
           }))}
+           labelClassName="text-light text-xl font-bold"
           placeholder="Selecione uma localização"
           label="Localização do anúncio"
           className="self-start max-w-[368px]  lg:w-[368px]"

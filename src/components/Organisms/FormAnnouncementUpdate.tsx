@@ -76,10 +76,10 @@ const FormAnnouncementUpdate = ({
         {...register("title")}
         errorMessage={errors.title?.message}
         labelClassName="text-light text-xl font-bold"
-        className="bg-light text-primary-default w-full sm:max-w-[250px]"
+        className="bg-light  text-primary-default w-full sm:max-w-[250px]"
       />
       <div className="flex flex-col gap-3">
-        <Label children="Descrição" />
+        <Label children="Descrição" className="text-light" />
         <textarea
           {...register("description")}
           className="min-h-[100px] h-[152px] max-h-[400px] max-w-[678px] sm:w-[500px] md:w-[600px] lg:w-[678px] rounded-md py-2 px-3 text-base outline-none focus:ring-2 focus:ring-primary text-primary-default"
@@ -93,6 +93,7 @@ const FormAnnouncementUpdate = ({
           label: value,
           value,
         }))}
+ labelClassName="text-light text-xl font-bold"
         value={category}
         onChange={(e) => {
           console.log(
@@ -116,6 +117,7 @@ const FormAnnouncementUpdate = ({
           label: value,
           value,
         }))}
+         labelClassName="text-light text-xl font-bold"
         value={campus}
         onChange={(e) => {
           console.log(
@@ -137,6 +139,7 @@ const FormAnnouncementUpdate = ({
       <FormInput
         type="number"
         label="Preço"
+        
         {...register("price", { valueAsNumber: true })}
         errorMessage={errors.price?.message}
         labelClassName="text-light text-xl font-bold"
