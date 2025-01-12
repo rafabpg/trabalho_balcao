@@ -1,19 +1,15 @@
-import React from 'react'
-import { twMerge } from "tailwind-merge"
+import React from "react";
 
-interface LabelProps {
-  children: React.ReactNode
-  className?: string
+interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
+  children: React.ReactNode;
 }
 
-const Label = ({
-    children,className
-}:LabelProps) => {
+const Label: React.FC<LabelProps> = ({ children, ...props }) => {
   return (
-    <label className={twMerge("text-xl text-light font-bold",className)}>
-        {children}
+    <label {...props} className={`text-primary-darker font-normal text-xl ${props.className || ""}`}>
+      {children}
     </label>
-  )
-}
+  );
+};
 
-export default Label
+export default Label;
