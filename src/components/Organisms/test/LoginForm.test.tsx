@@ -75,8 +75,10 @@ describe("LoginForm", () => {
     fireEvent.click(screen.getByText(/entrar/i));
 
     await waitFor(() => {
-      expect(screen.getByText(/cpf é obrigatório/i)).toBeInTheDocument();
-      expect(screen.getByText(/senha é obrigatória/i)).toBeInTheDocument();
+      expect(screen.getByText("Insira seu CPF")).toBeInTheDocument();
+      expect(
+        screen.getByText("A senha deve ter no mínimo 6 caracteres")
+      ).toBeInTheDocument();
     });
   });
 });
