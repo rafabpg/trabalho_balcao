@@ -8,7 +8,7 @@ interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
 
 const Label: React.FC<LabelProps> = ({ children,className ,...props }) => {
   return (
-    <label {...props} className={twMerge(`text-primary-darker font-normal text-xl ${props.className || ""}`,className)}>
+    <label {...props} className={twMerge(`text-primary-darker font-normal text-xl}`,className)}>
       {children}
     </label>
   );

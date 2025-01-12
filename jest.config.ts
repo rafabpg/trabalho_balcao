@@ -7,9 +7,11 @@ const config: Config = {
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/mocks/fileMock.js'
   },
   transform: {
     '^.+\\.(ts|tsx|js|jsx)$': 'ts-jest',
+     ".+\\.(css|scss|png|jpg|svg)$": "jest-transform-stub"
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverage: false,
