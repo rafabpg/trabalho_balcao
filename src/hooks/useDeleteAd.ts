@@ -11,7 +11,6 @@ type DeleteDataProps = {
 const useDeleteAd = () => {
   const mutation = useMutation({
     mutationFn: async ({ httpClient, url,headers }: DeleteDataProps) => {
-        console.log("headers",headers)
       const response = await httpClient.request({
         url: url,
         method: "delete",

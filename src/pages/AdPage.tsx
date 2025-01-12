@@ -9,6 +9,7 @@ import Button from "@/components/Atoms/Button";
 import Star from "@/assets/icons/Star.png";
 import { Ad } from "./Home";
 import LoadingSpinner from "@/components/Atoms/LoadingSpinner";
+import { useNotification } from "@/hooks/useNotification";
 
 const fetchAd = async (adId: string): Promise<Ad> => {
   const response = await api.get(`/advertisements/${adId}`);
@@ -28,7 +29,8 @@ const AdPage: React.FC = () => {
   const { adId } = useParams<{ adId: string }>();
   const [isProposalModalOpen, setIsProposalModalOpen] = useState(false);
   const [images, setImages] = useState<string[] | null>(null);
-
+  const {showError} = useNotification()
+  
   const { data: ad, isLoading, isError } = useQuery<Ad>({
     queryKey: ["advertisement", adId],
     queryFn: () => fetchAd(adId!),
@@ -39,7 +41,7 @@ const AdPage: React.FC = () => {
     if (ad && ad.images_urls) {
       fetchImages(ad.images_urls.slice(0, 3))
         .then(setImages)
-        .catch((error) => console.error("Erro ao carregar imagens:", error));
+        .catch((error) => showError("Erro ao carregar imagens:", error));
     }
   }, [ad]);
 

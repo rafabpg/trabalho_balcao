@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import X from "@/assets/icons/X.svg";
 import api from '@/services/api';
+import { useNotification } from '@/hooks/useNotification';
 
 interface ProposalModalProps {
   onClose: () => void;
@@ -11,7 +12,7 @@ interface ProposalModalProps {
 
 const ProposalModal: React.FC<ProposalModalProps> = ({ onClose, adId, sellerName, productPrice }) => {
   const [message, setMessage] = useState("");
-
+  const {showError} = useNotification()
   const startNegotiation = async () => {
     try {
       await api.post(`advertisements/${adId}/negotiations`, {
@@ -19,7 +20,7 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ onClose, adId, sellerName
       });
       onClose();
     } catch (error) {
-      console.error("Erro ao enviar proposta:", error);
+      showError("Erro ao enviar proposta:", error);
     }
   };
 
