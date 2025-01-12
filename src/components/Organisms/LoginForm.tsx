@@ -31,12 +31,13 @@ const LoginForm: React.FC = () => {
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex pt-8 flex-col  gap-4 justify-center items-center"
+        className="flex pt-8 flex-col gap-4 justify-center items-center"
       >
         <FormInput
           className="sm:w-[150px] md:w-[200px] lg:w-[360px]"
           type="text"
           placeholder="ex:123.456.789-13"
+          id="cpf"
           {...register("cpf")}
           label="CPF"
           labelClassName="text-primary-darker font-normal text-xl"
@@ -45,6 +46,7 @@ const LoginForm: React.FC = () => {
         <FormInput
           type="password"
           placeholder="Senha"
+          id="senha"
           {...register("password")}
           label="Senha"
           className="sm:w-[150px] md:w-[200px] lg:w-[360px]"
