@@ -1,4 +1,5 @@
-import { Ad } from '@/pages/Home';
+import { Ad} from '@/shared/announcement';
+import { CategoryEnum, LocalizationEnum } from '@/shared/enumsForm';
 import React from 'react';
 import { FaMapMarkerAlt, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -31,9 +32,9 @@ const AdCard: React.FC<AdCardProps> = ({ ad }) => {
         </div>
         <div className="flex items-center mt-2">
           <FaMapMarkerAlt className="mr-1" size={14} />
-          <span className="text-sm">{ad.campus}</span>
+          <span className="text-sm">{LocalizationEnum[ad.campus.toUpperCase() as keyof typeof LocalizationEnum]}</span>
         </div>
-        <p className="text-sm">{ad.category}</p>
+        <p className="text-sm">{CategoryEnum[ad.category.toUpperCase() as keyof typeof CategoryEnum]}</p>
       </div>
 
       <div className="p-4 bg-blue-950 text-white rounded-b-lg flex justify-between items-center">
