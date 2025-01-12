@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import FormCard from "../Atoms/FormCard";
 import Button from "../Atoms/Button";
-import { NavigateFunction } from "react-router-dom";
 import { Ad } from "@/shared/announcement";
 import FormInput from "../Molecules/FormInput";
 import SelectField from "../Atoms/SelectField";
@@ -31,7 +30,6 @@ const FormAnnouncementUpdate = ({
     register,
     handleSubmit,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm<UpdateAnnouncementSchema>({
     resolver: zodResolver(updateAnnouncementSchema),
@@ -55,33 +53,21 @@ const FormAnnouncementUpdate = ({
       phone_contact: announcementData.phone_contact,
     },
   });
-
-  useEffect(() => {
-    const categoryValue =
-      CategoryEnum[
-        announcementData.category.toUpperCase() as keyof typeof CategoryEnum
-      ];
-    setValue("category", categoryMap[categoryValue]);
-    const campusValue =
-      LocalizationEnum[
-        announcementData.campus.toUpperCase() as keyof typeof LocalizationEnum
-      ];
-    setValue("campus", campusMap[campusValue]);
-    console.log(getValues("category"));
-    console.log(getValues("campus"));
-  }, [announcementData, setValue]);
+  const [category, setCategory] = React.useState<string>(
+    CategoryEnum[
+      announcementData.category.toUpperCase() as keyof typeof CategoryEnum
+    ]
+  );
+  const [campus, setCampus] = React.useState<string>(
+    LocalizationEnum[
+      announcementData.campus.toUpperCase() as keyof typeof LocalizationEnum
+    ]
+  );
 
   const onSubmit = (data: UpdateAnnouncementSchema) => {
     handleSave(data);
   };
 
-  const options = Object.values(LocalizationEnum).map((value) => ({
-    label: value,
-    value,
-  }));
-  console.log(options);
-  console.log("getValues(", getValues("campus"));
-  console.log(getValues("category"));
   return (
     <FormCard onSubmit={handleSubmit(onSubmit)} className="m-4">
       <FormInput
@@ -103,32 +89,46 @@ const FormAnnouncementUpdate = ({
         )}
       </div>
       <SelectField
-        {...register("category")}
         options={Object.values(CategoryEnum).map((value) => ({
           label: value,
           value,
         }))}
-        defaultValue={
-          CategoryEnum[
-            announcementData.category.toUpperCase() as keyof typeof CategoryEnum
-          ]
-        }
+        value={category}
+        onChange={(e) => {
+          console.log(
+            "e.target.value",
+            categoryMap[e.target.value as keyof typeof categoryMap]
+          );
+          setCategory(e.target.value);
+          setValue(
+            "category",
+            // @ts-ignore
+            e.target.value
+          );
+        }}
         placeholder="Altere a categoria"
         label="Categoria"
         className="self-start max-w-[368px] lg:w-[368px]"
         errorMessage={errors.category?.message}
       />
       <SelectField
-        {...register("campus")}
         options={Object.values(LocalizationEnum).map((value) => ({
           label: value,
           value,
         }))}
-        defaultValue={
-          LocalizationEnum[
-            announcementData.campus.toUpperCase() as keyof typeof LocalizationEnum
-          ]
-        }
+        value={campus}
+        onChange={(e) => {
+          console.log(
+            "e.target.value campus",
+            campusMap[e.target.value as keyof typeof campusMap]
+          );
+          setCampus(e.target.value);
+          setValue(
+            "campus",
+            // @ts-ignore
+            e.target.value
+          );
+        }}
         placeholder="Altere o Campus"
         label="Campus"
         className="self-start max-w-[368px] lg:w-[368px]"

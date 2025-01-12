@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from "react";
+import React, { forwardRef } from "react";
 import Label from "./Label";
 import { CategoryEnum } from "@/shared/enumsForm";
 
@@ -8,7 +8,8 @@ interface SelectProps {
   placeholder?: string;
   className?: string;
   errorMessage?: string;
-  defaultValue?: any;
+  value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const SelectField = forwardRef<HTMLSelectElement, SelectProps>(
@@ -19,7 +20,8 @@ const SelectField = forwardRef<HTMLSelectElement, SelectProps>(
       placeholder,
       className = "",
       errorMessage,
-      defaultValue,
+      value,
+      onChange,
       ...props
     },
     ref
@@ -29,6 +31,8 @@ const SelectField = forwardRef<HTMLSelectElement, SelectProps>(
         {label && <Label>{label}</Label>}
         <select
           ref={ref}
+          value={value}
+          onChange={onChange}
           className="border rounded-lg py-2 px-3 text-base outline-none focus:ring-2 focus:ring-primary"
           {...props}
         >
@@ -38,7 +42,7 @@ const SelectField = forwardRef<HTMLSelectElement, SelectProps>(
             </option>
           )}
           {options.map((option) => (
-            <option key={option.value} value={option.value} selected={option.value === defaultValue}>
+            <option key={option.value} value={option.value}>
               {option.label}
             </option>
           ))}

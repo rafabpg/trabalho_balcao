@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-const CategoryEnum = z.enum(["Aula Particular", "Movéis", "Livros", "Roupa"]);
-const LocalizationEnum = z.enum([
+export const CategoryEnumSchema = z.enum(["Aula Particular", "Movéis", "Livros", "Roupa"]);
+export const LocalizationEnumSchema = z.enum([
   "Praia Vermelha",
   "Gragoatá",
   "Valonguinho",
@@ -9,7 +9,7 @@ const LocalizationEnum = z.enum([
   "Campos dos Goytacazes",
 ]);
 
-export const categoryMap = { Livros: 0, Roupa: 1, Movéis: 2, "Aula Particular": 3 };
+export const categoryMap = { "Livros": 0, "Roupa": 1, "Movéis": 2, "Aula Particular": 3 };
 export const campusMap = {
   "Praia Vermelha": 0,
   Gragoatá: 1,
@@ -21,8 +21,8 @@ export const campusMap = {
 export const updateAnnouncementSchema = z.object({
   title: z.string().min(1, { message: "Campo obrigatório" }),
   description: z.string().min(1, { message: "Campo obrigatório" }),
-  category: CategoryEnum.transform((val) => categoryMap[val]),
-  campus: LocalizationEnum.transform((val) => campusMap[val]),
+  category: CategoryEnumSchema.transform((val) => categoryMap[val]),
+  campus: LocalizationEnumSchema.transform((val) => campusMap[val]),
   price: z
     .number()
     .min(0.0001, { message: "Preço deve ser maior que 0" })
