@@ -9,16 +9,6 @@ const Header = () => {
   const [isOpenMobileMenu, setIsOpenMobileMenu] = useState<boolean>(false);
   const [isOpenDropDown, setIsOpenDropDown] = useState<boolean>(false);
 
-  // const logout = () => {
-  //     const cookies = document.cookie.split('; ');
-  //     for (const cookie of cookies) {
-  //       const [name, value] = cookie.split('=');
-  //       document.cookie = `${name}=; expires=Thu, 01-Jan-1970 00:00:00 GMT;`;
-  //     }
-  //     console.log("logout");
-  //     console.log(document.cookie);
-  // }
-
   const { logout, currentUser } = useAuth();
 
   const isMobile = useMediaQuery("(max-width: 768px)");

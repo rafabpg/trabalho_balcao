@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UserImage from '../Atoms/UserImage';
 import ProposalRequest from "@/components/Organisms/ProposalRequest";
 import UserDefaultImage from '@/assets/images/user_default_profile.png';
+import { useNotification } from "@/hooks/useNotification";
 
 interface UserChatProps {
   userName: string;
@@ -14,14 +15,14 @@ interface UserChatProps {
 
 const UserChat: React.FC<UserChatProps> = ({ userName, message, category, date, isNew = false, onProposalAccepted }) => {
   const [isProposalOpen, setIsProposalOpen] = useState(false);
-
+  const {showError} = useNotification()
   const handleAccept = () => {
     setIsProposalOpen(false);
     onProposalAccepted(userName);
   };
 
   const handleReject = () => {
-    console.log("Proposta recusada.");
+    showError("Proposta recusada.");
     setIsProposalOpen(false);
   };
 

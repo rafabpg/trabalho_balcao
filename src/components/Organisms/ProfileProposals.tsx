@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import ProposalRequest from "@/components/Organisms/ProposalRequest";
 import LoadingSpinner from "../Atoms/LoadingSpinner";
 import api from "@/services/api";
+import { useNotification } from "@/hooks/useNotification";
 
 interface Negotiation {
   id: string;
@@ -39,7 +40,7 @@ const rejectProposal = async (advertisementId: string, negotiationId: string) =>
 
 const ProposalsPage: React.FC = () => {
   const queryClient = useQueryClient(); // Obter o queryClient para invalidar a query
-
+  const {showSuccess,showError} = useNotification()
   const { data: negotiations, isLoading, isError } = useQuery<Negotiation[]>({
     queryKey: ["negotiations"],
     queryFn: fetchNegotiations,
@@ -48,22 +49,22 @@ const ProposalsPage: React.FC = () => {
   const acceptMutation = useMutation({
     mutationFn: (data: { advertisementId: string, negotiationId: string }) => acceptProposal(data.advertisementId, data.negotiationId),
     onSuccess: () => {
-      console.log("Proposta confirmada com sucesso!");
+      showSuccess("Proposta confirmada com sucesso!");
       queryClient.invalidateQueries({ queryKey: ["negotiations"] });
     },
     onError: (error: any) => {
-      console.error("Erro ao aceitar proposta:", error);
+      showError("Erro ao aceitar proposta:", error);
     }
   });
 
   const rejectMutation = useMutation({
     mutationFn: (data: { advertisementId: string, negotiationId: string }) => rejectProposal(data.advertisementId, data.negotiationId),
     onSuccess: () => {
-      console.log("Proposta rejeitada com sucesso!");
+      showSuccess("Proposta rejeitada com sucesso!");
       queryClient.invalidateQueries({ queryKey: ["negotiations"] });
     },
     onError: (error: any) => {
-      console.error("Erro ao rejeitar proposta:", error);
+      showError("Erro ao rejeitar proposta:", error);
     }
   });
 

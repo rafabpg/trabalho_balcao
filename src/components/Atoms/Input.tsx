@@ -24,6 +24,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         placeholder={placeholder}
         value={value}
         disabled={disabled}
+        step={type === "number" ? "0.01" : undefined}
         onChange={onChange}
         id={props.id}
         ref={(el) => {
