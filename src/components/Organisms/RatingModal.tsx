@@ -4,6 +4,7 @@ import Star from "@/assets/icons/Star 3.png";
 import fadedStar from "@/assets/icons/Star 2.png";
 import Text from "@/assets/icons/textbubble.png";
 import Button from "../Atoms/Button";
+import { useNotification } from "@/hooks/useNotification";
 
 interface RatingModalProps {
   onClose: () => void;
@@ -12,9 +13,9 @@ interface RatingModalProps {
 const RatingModal: React.FC<RatingModalProps> = ({ onClose }) => {
   const [rating, setRating] = useState(1);
   const [opinion, setOpinion] = useState("");
-
+  const {showSuccess} = useNotification()
   const submit = () => {
-    console.log("Avaliação enviada:", { rating, opinion });
+    showSuccess("Avaliação enviada:", { rating, opinion });
     onClose();
   };
 

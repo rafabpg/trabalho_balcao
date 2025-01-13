@@ -1,32 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import WelcomeBanner from '@/components/Organisms/WelcomeBanner';
-import SearchAndFilterBar from '@/components/Organisms/SearchAndFilterBar';
-import AdCard from '@/components/Organisms/AdCard';
-import Pagination from '@/components/Molecules/Pagination';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/services/api';
-import LoadingSpinner from '@/components/Atoms/LoadingSpinner';
-
-export interface Ad {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  status: string;
-  kind: string;
-  category: string;
-  campus: string;
-  phone_contact: string;
-  email_contact: string;
-  created_at: string;
-  updated_at: string;
-  images_urls: string[];
-  user: {
-    id: string;
-    full_name: string;
-    rating: number;
-  }
-}
+import React, { useEffect, useState } from "react";
+import WelcomeBanner from "@/components/Organisms/WelcomeBanner";
+import SearchAndFilterBar from "@/components/Organisms/SearchAndFilterBar";
+import AdCard from "@/components/Organisms/AdCard";
+import Pagination from "@/components/Molecules/Pagination";
+import LoadingSpinner from "@/components/Atoms/LoadingSpinner";
+import { Ad } from "@/shared/announcement";
+import useGetAllAds from "@/hooks/useGetAllAds";
+import { AxiosHttpClientAdapter } from "@/services/axiosAdapter";
 
 interface Filters {
   searchTerm: string;
@@ -36,41 +16,27 @@ interface Filters {
   dateOrder: string;
 }
 
-const fetchAds = async (page: number, filters: Filters): Promise<{ itens: Ad[]; page_size: number; page_count: number; page: number }> => {
-  const params = new URLSearchParams({
-    page: page.toString(),
-    category: filters.category,
-    campus: filters.location,
-  }).toString();
-
-  const response = await api.get(`/advertisements?${params}`);
-  if (response.status !== 200) throw new Error('Failed to fetch ads');
-  return response.data;
-};
-
 const Home: React.FC = () => {
   const [filters, setFilters] = useState<Filters>({
-    searchTerm: '',
-    priceOrder: '',
-    category: '',
-    location: '',
-    dateOrder: '',
+    searchTerm: "",
+    priceOrder: "",
+    category: "",
+    location: "",
+    dateOrder: "",
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ['advertisements'],
-    queryFn: () => fetchAds(currentPage, filters),
+  const { data, isLoading, error, isError } = useGetAllAds({
+    httpClient: new AxiosHttpClientAdapter(),
+    url: `/advertisements`,
+    headers: localStorage.getItem("auth"),
+    page: currentPage,
+    campus: filters.location,
+    category: filters.category,
   });
-  
-  useEffect(() => {
-    refetch();
-  }, [filters, currentPage, refetch]);
-  
-  if (isLoading) return <LoadingSpinner/>;
-  if (isError || !data) return <p>Erro ao carregar anúncios: {(error as Error).message}</p>;
-  
-  const ads = data.itens;
-  const totalPages = data.page_count
+
+  if (isLoading) return <LoadingSpinner />;
+  if (isError || !data)
+    return <p>Erro ao carregar anúncios: {(error as Error).message}</p>;
 
   return (
     <div>
@@ -79,14 +45,16 @@ const Home: React.FC = () => {
       <div className="p-4">
         <div className="flex justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl">
-            {ads.map((ad: Ad) => <AdCard ad={ad}/> )}
+            {data.itens.map((ad: Ad) => (
+              <AdCard key={ad.id} ad={ad} />
+            ))}
           </div>
         </div>
 
         <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          paginate={setCurrentPage}
+          currentPage={data.page}
+          totalPages={data.page_count}
+          paginate={(page) => setCurrentPage(page)}
         />
       </div>
     </div>

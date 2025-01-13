@@ -74,9 +74,9 @@ const SearchAndFilterBar: React.FC<SearchAndFilterBarProps> = ({ onApplyFilters 
     : 'Ordenar por data';
 
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <div className="flex flex-col md:flex-row items-center justify-center gap-2">
-        <div className="flex items-center bg-blue-950 rounded-full px-4 py-2 w-full md:max-w-lg">
+    <div className="flex flex-row-reverse justify-center items-center gap-4 p-4">
+      {/* <div className="flex flex-col md:flex-row items-center justify-center gap-2"> */}
+        {/* <div className="flex items-center bg-blue-950 rounded-full px-4 py-2 w-full md:max-w-lg">
           <FiSearch className="text-white mr-2" size={20} />
           <input
             type="text"
@@ -84,25 +84,27 @@ const SearchAndFilterBar: React.FC<SearchAndFilterBarProps> = ({ onApplyFilters 
             placeholder="Pesquise o título do anúncio"
             className="bg-transparent text-white placeholder-white w-full outline-none"
             onChange={handleSearchChange}
-          />
-        </div>
-        <button className="bg-blue-950 text-white px-4 py-2 rounded-xl" onClick={applyFilters}>
-          Buscar
-        </button>
+          /> */}
+        {/* </div> */}
         <button className="bg-red-600 text-white px-4 py-2 rounded-xl" onClick={clearFilters}>
           Limpar Filtros
         </button>
-      </div>
+        <button className="bg-blue-950 text-white px-4 py-2 rounded-xl" onClick={applyFilters}>
+          Buscar
+        </button>
+      {/* </div> */}
 
       <div className="flex flex-wrap gap-2 justify-center">
-        {[{
-            text: priceText,
-            isOpen: isOpenPrice,
-            setIsOpen: setIsOpenPrice,
-            key: 'priceOrder',
-            options: ['asc', 'desc'],
-            labels: ['Menor para Maior', 'Maior para Menor']
-          }, {
+        {[
+          // {
+          //   text: priceText,
+          //   isOpen: isOpenPrice,
+          //   setIsOpen: setIsOpenPrice,
+          //   key: 'priceOrder',
+          //   options: ['asc', 'desc'],
+          //   labels: ['Menor para Maior', 'Maior para Menor']
+          // }, 
+          {
             text: categoryText,
             isOpen: isOpenCategory,
             setIsOpen: setIsOpenCategory,
@@ -116,14 +118,16 @@ const SearchAndFilterBar: React.FC<SearchAndFilterBarProps> = ({ onApplyFilters 
             key: 'location',
             options: ['praia_vermelha', 'gragoata', 'valonguinho', 'santo_antonio_padua', 'campos_goytacazes'],
             labels: ['Praia Vermelha', 'Gragoatá', 'Valonguinho', 'Santo Antônio de Pádua', 'Campos dos Goytacazes']
-          }, {
-            text: dateText,
-            isOpen: isOpenDate,
-            setIsOpen: setIsOpenDate,
-            key: 'dateOrder',
-            options: ['recent', 'oldest'],
-            labels: ['Mais recente', 'Mais antigo']
-        }].map((filter, index) => (
+          }
+        //    {
+        //     text: dateText,
+        //     isOpen: isOpenDate,
+        //     setIsOpen: setIsOpenDate,
+        //     key: 'dateOrder',
+        //     options: ['recent', 'oldest'],
+        //     labels: ['Mais recente', 'Mais antigo']
+        // }
+      ].map((filter, index) => (
           <div key={index} className="relative">
             <button
               className="bg-blue-950 text-white px-4 py-2 rounded-full flex items-center justify-between gap-2 w-48 h-10"

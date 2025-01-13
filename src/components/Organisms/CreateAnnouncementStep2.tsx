@@ -21,6 +21,7 @@ const CreateAnnouncementStep2 = () => {
           <div className="flex lg:gap-20 md:gap-10 gap-5 flex-col  md:flex-row lg:flex-row">
             <FormInput
               type="text"
+               labelClassName="text-light text-xl font-bold"
               placeholder="(xx) 99999-9999"
               className="max-w-[282px] lg:w-[282px]"
               label="Digite o telefone para contato"
@@ -37,6 +38,7 @@ const CreateAnnouncementStep2 = () => {
             <FormInput
               type="text"
               placeholder="ex:teste@gmail.com"
+               labelClassName="text-light text-xl font-bold"
               className="max-w-[282px] lg:w-[282px]"
               {...register("email_contact")}
               error={errors.email?.message}

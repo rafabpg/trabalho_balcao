@@ -12,6 +12,7 @@ import ProfileEdition from "@/components/Organisms/ProfileEdition";
 import ProfileChats from "@/components/Organisms/ProfileChats";
 import ProfileProposals from "@/components/Organisms/ProfileProposals";
 import PageNotFound from "@/pages/PageNotFound";
+import AnnouncementEdit from "@/pages/AnnouncementEdit";
 
 const AppRoutes = () => {
   return (
@@ -29,6 +30,7 @@ const AppRoutes = () => {
             <Route index element={<Home />} />
             <Route path="meus-anuncios" element={<MyAds />} />
             <Route path="criar-anuncios" element={<CreateAnnouncementPage />} />
+            <Route path="anuncio/editar/:adId" element={<AnnouncementEdit />} />
             <Route path="anuncio/:adId" element={<AdPage />} />
             <Route path="*" element={<PageNotFound/>} />
           </Route>

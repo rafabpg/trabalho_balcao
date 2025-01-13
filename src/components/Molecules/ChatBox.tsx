@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaEllipsisV } from "react-icons/fa";
 import RatingModal from "../Organisms/RatingModal";
+import { useNotification } from "@/hooks/useNotification";
 
 interface Message {
   sender: string;
@@ -27,7 +28,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   const [inputMessage, setInputMessage] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
-
+  const {showSuccess} = useNotification()
   const handleSendMessage = () => {
     if (inputMessage.trim()) {
       onSendMessage(inputMessage);
@@ -63,7 +64,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
                 Encerrar Chat
               </button>
               <button
-                onClick={() => console.log("Excluir conversa clicado")}
+                onClick={() => showSuccess("Excluir conversa clicado")}
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 Excluir Conversa

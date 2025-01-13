@@ -1,17 +1,20 @@
 import React from 'react';
 import { FaTrash, FaEdit } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 interface AdListProps {
+  id: string;
   adTitle: string;
-  location: string;
-  category: string;
-  price: string;
+  location: any;
+  category: any;
+  price: number;
   isCreatedByUser: boolean; 
   onDelete: () => void; // Função de exclusão (mockada) trocar na integração com a API
   onEdit: () => void; // Função de edição (mockada) trocar na integração com a API
 }
 
 const AdList: React.FC<AdListProps> = ({
+  id,
   adTitle,
   location,
   category,
@@ -26,7 +29,7 @@ const AdList: React.FC<AdListProps> = ({
         <h4 className="font-semibold text-md">{adTitle}</h4>
       </div>
 
-      <div className="w-1/6 text-center flex-shrink-0">
+      <div className="w-1/5 text-center flex-shrink-0">
         <span className="bg-white text-blue-950 px-2 py-0.5 rounded-md text-sm">{location}</span>
       </div>
 
@@ -35,7 +38,7 @@ const AdList: React.FC<AdListProps> = ({
       </div>
 
       <div className="w-1/6 text-right flex-shrink-0">
-        <span className="text-lg font-bold">{price}</span>
+        <span className="text-lg font-bold">R$ {price}</span>
       </div>
 
       <div className="flex space-x-2 w-1/3 justify-end">
@@ -55,12 +58,12 @@ const AdList: React.FC<AdListProps> = ({
             </button>
           </>
         ) : null}
-        <a
-          href="anuncio/001"
+        <Link
+          to={`/anuncio/${id}`}
           className="px-3 py-1 bg-transparent border border-white rounded-md hover:bg-white hover:text-blue-950 transition flex items-center justify-center"
         >
           Ver Mais
-        </a>
+        </Link>
       </div>
     </div>
   );
